@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{F44FCF7F-549E-3CFE-8F4B-6D9F056A4709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C2B6CC25-3DA9-3CCA-9D87-23C4A5FF8AF9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

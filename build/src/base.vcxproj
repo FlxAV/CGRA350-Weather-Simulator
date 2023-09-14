@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{59B647A8-C81C-3032-8611-893818D1880C}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>base</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">base.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">base</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">base.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">base</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">base.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">base</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">base.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">base</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CGRA_SRCDIR="C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CGRA_SRCDIR=\"C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work\";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug\glew.lib;..\bin\Debug\glfw3.lib;opengl32.lib;..\bin\Debug\stb.lib;..\bin\Debug\imgui.lib;glu32.lib;kernel32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/Debug/base.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/Debug/base.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CGRA_SRCDIR="C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CGRA_SRCDIR=\"C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work\";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\bin\Release\glew.lib;..\bin\Release\glfw3.lib;opengl32.lib;..\bin\Release\stb.lib;..\bin\Release\imgui.lib;glu32.lib;kernel32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/Release/base.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/Release/base.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CGRA_SRCDIR="C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CGRA_SRCDIR=\"C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work\";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\bin\MinSizeRel\glew.lib;..\bin\MinSizeRel\glfw3.lib;opengl32.lib;..\bin\MinSizeRel\stb.lib;..\bin\MinSizeRel\imgui.lib;glu32.lib;kernel32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/MinSizeRel/base.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/MinSizeRel/base.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CGRA_SRCDIR="C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CGRA_SRCDIR=\"C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work\";CGRA_HAVE_OPENMP;GLEW_STATIC;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glfw\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\glew-1.10.0\include;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\stb;C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\ext\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\bin\RelWithDebInfo\glew.lib;..\bin\RelWithDebInfo\glfw3.lib;opengl32.lib;..\bin\RelWithDebInfo\stb.lib;..\bin\RelWithDebInfo\imgui.lib;glu32.lib;kernel32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/RelWithDebInfo/base.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/bin/RelWithDebInfo/base.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work" "-BC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build" --check-stamp-file "C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/src/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work" "-BC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build" --check-stamp-file "C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/src/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work" "-BC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build" --check-stamp-file "C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/src/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work" "-BC:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build" --check-stamp-file "C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/build/src/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\application.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\application.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton_model.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton_model.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\opengl.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\main.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_geometry.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_geometry.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_gui.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_gui.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_image.hpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_mesh.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_mesh.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_shader.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_shader.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_wavefront.hpp" />
+    <None Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\CMakeLists.txt">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\ZERO_CHECK.vcxproj">
+      <Project>{67E45413-9EFB-3B42-A68E-35D4ADCA554B}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\ext\glew-1.10.0\glew.vcxproj">
+      <Project>{85BFB769-7799-399D-9EF4-DD745175D4D8}</Project>
+      <Name>glew</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\ext\glfw\src\glfw.vcxproj">
+      <Project>{C3ACD76C-2E82-38FE-B259-49B181B19230}</Project>
+      <Name>glfw</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\ext\imgui\imgui.vcxproj">
+      <Project>{217775C5-C1C0-3949-802A-7A8F5EAEE09D}</Project>
+      <Name>imgui</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\build\ext\stb\stb.vcxproj">
+      <Project>{1A075460-351C-3735-A70C-94DC64091651}</Project>
+      <Name>stb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
