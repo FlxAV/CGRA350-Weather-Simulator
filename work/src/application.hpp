@@ -135,7 +135,9 @@ private:
 
 	bool refreshRequired = false;
 	int accumulatedPasses = 0;
-	
+	glm::mat4 preView = glm::mat4(1);
+	//glm::vec3 testpos = vec3(0);
+	glm::vec3 camPos;
 
 public:
 	// setup

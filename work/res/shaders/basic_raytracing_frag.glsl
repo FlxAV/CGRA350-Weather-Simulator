@@ -1,7 +1,5 @@
 #version 430 core
 
-#define MAX_OBJECT_COUNT 64
-#define MAX_LIGHT_COUNT 4
 #define RENDER_DISTANCE 10000
 #define EPSILON 0.0001
 #define PI 3.1415926538
@@ -20,7 +18,7 @@ uniform float u_time;
 uniform int u_lightBounces;
 uniform int u_shadowResolution;
 uniform int u_accumulatedPasses;
-
+uniform vec3 u_cameraPosition;
 
 
 // viewspace data (this must match the output of the fragment shader) -> plane data
@@ -30,6 +28,7 @@ in VertexData {
 	vec2 textureCoord;
 } f_in;
 
+in vec3 lightPos;
 
 // framebuffer output
 out vec4 fb_color;
@@ -79,20 +78,76 @@ float rand(vec2 co){
 
 bool planeIntersection(Ray ray, out float hitDistance) 
 { 
-    // TODO: if coordinate blocks plane -> MOUNTAINS 
-
-
-
-    float denom = dot(f_in.normal, ray.direction); 
-
+    
+	vec3 norm = f_in.normal;
+    float denom = dot(norm, ray.direction); 
+    
     if (abs(denom) > EPSILON) { 
         vec3 d = f_in.position - ray.origin; 
-        hitDistance = dot(d, f_in.normal) / denom; 
+        hitDistance = dot(d, norm) / denom; 
         return (hitDistance >= EPSILON); 
     } 
  
     return false; 
 } 
+
+// TODO: if coordinate blocks plane -> MOUNTAINS 
+// Iterate through each triangle(face) -> check whether ray collides with face
+//bool planeVertexIntersect(){
+	
+	//vec3 v0,v1,v2;
+	//for (int i=0;i<faceArray.size();i++){
+		
+		//vec3 e1 = v1 - v0;
+    	//vec3 e2 = v2 - v0;
+    	//vec3 h = cross(rayDir, e2);
+    	//float a = dot(e1, h);
+    
+    	//if (a > -EPSILON && a < EPSILON)
+        //	return false;
+    
+    	//float f = 1.0 / a;
+    	//vec3 s = rayOrigin - v0;
+    	//float u = f * dot(s, h);
+    
+    	//if (u < 0.0 || u > 1.0)
+        //	return false;
+    
+    	//vec3 q = cross(s, e1);
+    	//float v = f * dot(rayDir, q);
+    
+    	//if (v < 0.0 || u + v > 1.0)
+        //	return false;
+    
+    	//t = f * dot(e2, q);
+    
+    	//return t > EPSILON;
+
+	//}
+
+//}
+
+// TODO:: NEW RAYCAST
+bool raycastTerrain(Ray ray, out SurfacePoint hitPoint) {
+	bool didHit = false;
+	float minHitDist = RENDER_DISTANCE;
+
+	float hitDist = distance(f_in.position, ray.origin);
+
+	// Checks if plane if the ray intersects with a plane vertex
+	if (planeIntersection(ray, hitDist)) {
+		didHit = true;
+		if (hitDist < minHitDist) {
+			minHitDist = hitDist;
+			hitPoint.position = ray.origin + ray.direction * minHitDist;
+			hitPoint.normal = vec3(0,1,0);
+			hitPoint.material = u_planeMaterial;
+		}
+	}
+
+	return didHit;
+}
+
 
 bool raycast(Ray ray, out SurfacePoint hitPoint) {
 	bool didHit = false;
@@ -100,12 +155,13 @@ bool raycast(Ray ray, out SurfacePoint hitPoint) {
 
 	float hitDist = distance(f_in.position, ray.origin);
 
+
 	if (planeIntersection(ray, hitDist)) {
 		didHit = true;
 		if (hitDist < minHitDist) {
 			minHitDist = hitDist;
 			hitPoint.position = ray.origin + ray.direction * minHitDist;
-			hitPoint.normal = vec3(0,1,0);
+			hitPoint.normal = f_in.normal;
 			hitPoint.material = u_planeMaterial;
 		}
 	}
@@ -144,7 +200,8 @@ vec3 sampleHemisphere(vec3 normal, float alpha, vec2 seed)
 vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed) {
 	
 	PointLight light = u_light;
-	light.position = (uModelViewMatrix * vec4(light.position, 1)).xyz;
+	light.position = lightPos;
+	//light.position = (uModelViewMatrix * vec4(light.position, 1)).xyz;
 
 	vec3 directIllumination = vec3(0);
 	float lightDistance = length(light.position - point.position);
@@ -199,6 +256,7 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 	vec3 energy = vec3(1.0);
 
 	for (int depth = 0; depth < u_lightBounces; depth++) {
+		
 		SurfacePoint hitPoint;
 		if (raycast(Ray(rayOrigin, rayDirection), hitPoint)) {
 
@@ -215,6 +273,9 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 			float sum = specChance + diffChance;
 			specChance /= sum;
 			diffChance /= sum;
+
+			//specChance = 0;
+			//diffChance = 0;
 
 			// Roulette-select the ray's path
 			float roulette = rand(hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
@@ -256,17 +317,21 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 ////////////////////////////////////////////// Main
 
 void main() {
-	///////////////////////////
-
-
 
 	///////////////////////////
+
+
+
+	///////////////////////////
+
 	//PointLight light = u_light;
 	//light.position = (uModelViewMatrix * vec4(light.position, 1)).xyz;
 
 	vec2 centeredUV = (f_in.textureCoord * 2 - vec2(1)) * vec2(u_aspectRatio, 1.0);
-	vec3 rayDir = (normalize(vec4(centeredUV, -1.0, 0.0))*uModelViewMatrix).xyz; // MODELVIEW
-	vec3 eye = normalize(-f_in.position);
+	//vec3 rayDir = (normalize(vec4(centeredUV, -1.0, 0.0))).xyz; // MODELVIEW
+
+	vec3 rayDir = f_in.position - u_cameraPosition;
+	vec3 eye = normalize(-u_cameraPosition);
 	Ray cameraRay = Ray(eye, rayDir);
 
 	// Camera raycasting
@@ -276,7 +341,7 @@ void main() {
 	// get u_framepasses and u_time
 	fb_color = vec4(colorSum / u_framePasses, 1.0);
 
-	//if (u_accumulatedPasses > 0) {
+	if (u_accumulatedPasses > 0) {
 
 		//SurfacePoint hitPoint;
 		//vec3 offsetDirection = cameraRay.direction + vec3(rand(vec2(1,u_time)+f_in.textureCoord), rand(vec2(2, u_time)+f_in.textureCoord), rand(vec2(3, u_time)+f_in.textureCoord));
@@ -286,8 +351,8 @@ void main() {
 		//}
 
 		// Add last frame back (progressive sampling)
-		//fb_color += texture(u_screenTexture, f_in.textureCoord);
-	//}
+		fb_color += texture(u_screenTexture, f_in.textureCoord);
+	}
 
 
 	// calculate lighting (hack)

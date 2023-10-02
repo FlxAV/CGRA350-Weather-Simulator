@@ -220,9 +220,9 @@ PointLight::PointLight(const glm::vec3&nposition, float nradius, const glm::vec3
 //////////////////////// Main application class ////////////////////////
 
 Application::Application(GLFWwindow *window) : m_window(window) {
-	//
+	
 	//shader_builder sb;
- //   sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_vert.glsl"));
+	//sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_vert.glsl"));
 	//sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_frag.glsl"));
 	//GLuint shader = sb.build();
 
@@ -240,7 +240,7 @@ Application::Application(GLFWwindow *window) : m_window(window) {
 	m_rayplane.material = planeMaterial;
 	//placeBasicScene();
 	//recompileShader();
-	pointLight = PointLight(vec3(0,5,0),10, vec3(0.7), 250, 150);
+	pointLight = PointLight(vec3(0.0,5.0,0.0),10, vec3(0.7), 250, 150);
 	buildRayBasicShader();
 
 	glUseProgram(rayshader);
@@ -250,6 +250,7 @@ Application::Application(GLFWwindow *window) : m_window(window) {
 
 	//glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 
+	
 	int charles = 5000000;
 }
 
@@ -284,10 +285,14 @@ void Application::render() {
 		* rotate(mat4(1), m_yaw,   vec3(0, 1, 0));
 
 
+	camPos = vec3(0,0,0);
+
+
 	// helpful draw options
 	if (m_show_grid) drawGrid(view, proj);
 	if (m_show_axis) drawAxis(view, proj);
 	glPolygonMode(GL_FRONT_AND_BACK, (m_showWireframe) ? GL_LINE : GL_FILL);
+
 
 
 	// draw the model
@@ -351,9 +356,33 @@ void Application::buildRayBasicShader() {
 void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,double time ) {
 
 	// DRAW PLANE
-	
-	mat4 modelview = view * m_rayplane.modelTransform;
+	vec3 pos = pointLight.position;
 
+	if (m_rayplane.modelTransform == mat4(1)) { cout << "skusshhhh \n"; }
+	mat4 modelview = view * m_rayplane.modelTransform;
+	
+
+
+	/*if (modelview != preView) {
+		mat4 transform = view * mat4(1);
+		vec4 v(view * vec4(pointLight.position, 1));
+		
+	cout << "old position: " << pointLight.position.x << "--" << pointLight.position.y << "--" << pointLight.position.z << "\n";
+		pointLight.position = v;
+		cout << "new position: " << v.x << "--" << v.y << "--" << v.z << "\n";
+	}*/
+	cout << "old position: " << pointLight.position.x << "--" << pointLight.position.y << "--" << pointLight.position.z << "\n";
+
+	mat4 transform = view * mat4(1);
+	vec4 v(proj*modelview * vec4(pointLight.position, 1));
+
+
+	cout << "new position: " << v.x << "--" << v.y << "--" << v.z << "--" << v.w << "\n";
+	//pointLight.position = v;
+
+	preView = modelview;
+
+	//pointLight.position = proj * modelview * vec4(pointLight.position, 1);
 	// plane vertex stuff
 	glUseProgram(rayshader); // load shader and variables
 	accumulatedPasses += 1;
@@ -366,7 +395,9 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 	glUniform1i(glGetUniformLocation(rayshader, "u_lightBounces"), lightBounces);
 	glUniform1i(glGetUniformLocation(rayshader, "u_framePasses"), framePasses);
 	glUniform1f(glGetUniformLocation(rayshader, "u_time"), (float)time);
-	
+	glUniform3fv(glGetUniformLocation(rayshader, "u_cameraPosition"), 1, value_ptr(camPos));
+
+
 	// light stuff
 	glUniform3f(glGetUniformLocation(rayshader, "u_light.position"), pointLight.position.x, pointLight.position.y, pointLight.position.z);
 	glUniform1f(glGetUniformLocation(rayshader, "u_light.radius"), pointLight.radius);
@@ -385,13 +416,20 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularExponent"), m_rayplane.material.specularExponent);
 
 	m_rayplane.mesh.draw(); // draw
+
+
+	// do the same thing for UVs but bind it to location=2 - the data is treated in lots of 2 (2 floats = vec2)
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vec3),value_ptr(pointLight.position));
+
+
 	if (refreshRequired) {
 		accumulatedPasses = 0;
 		refreshRequired = false;
 	}
 	glUniform1i(glGetUniformLocation(rayshader, "u_accumulatedPasses"), accumulatedPasses);
 	// DRAW OBJECTS
-
+	pointLight.position = pos;
 }
 
 
