@@ -205,16 +205,15 @@ Material::Material(const glm::vec3&nalbedo, const glm::vec3&nspecular, const glm
 }
 //////////////////////// LIGHTING MODELS ////////////////////////
 PointLight::PointLight() = default;
-PointLight::PointLight(const glm::vec3&nposition, float nradius, const glm::vec3&ncolor, float power, float reach) {
+PointLight::PointLight(const glm::vec3& nposition, const glm::vec3& ndirection, float nradius, const glm::vec3&ncolor, float power, float reach) {
 	position = nposition;
+	direction = ndirection;
 	radius = nradius;
 	color = ncolor;
 
 	this->power = power;
 	this->reach = reach;
 }
-
-
 
 
 //////////////////////// Main application class ////////////////////////
@@ -236,13 +235,16 @@ Application::Application(GLFWwindow *window) : m_window(window) {
 	//m_model.mesh = drawUVSphere().build();
 
 	m_rayplane.mesh = drawPlane().build();
-	planeMaterial = Material(vec3(1.0F, 1.0F, 1.0F), vec3(0.75F, 0.75F, 0.75F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
+	planeMaterial = Material(vec3(0.4F, 0.4F, 0.4F), vec3(0.75F, 0.75F, 0.75F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
 	m_rayplane.material = planeMaterial;
 	//placeBasicScene();
 	//recompileShader();
-	pointLight = PointLight(vec3(0.0,5.0,0.0),10, vec3(0.7), 250, 150);
+
+	// Position , radius , color , power , reach
+	pointLight = PointLight(vec3(1.0,5.0,1.0),vec3(-1,-1,0),6, vec3(0.7), 15, 15);
 	buildRayBasicShader();
 
+	//pointLight.position += vec3(5, 0, 0);
 	glUseProgram(rayshader);
 	glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 	//placeBasicScene();
@@ -259,8 +261,6 @@ void Application::render() {
 	
 	//TIME
 	double preTime = glfwGetTime();
-
-
 
 	// retrieve the window hieght
 	glfwGetFramebufferSize(m_window, &width, &height); 
@@ -280,7 +280,7 @@ void Application::render() {
 	proj = perspective(1.f, float(width) / height, 0.1f, 1000.f);
 
 	// view matrix
-	view = translate(mat4(1), vec3(0, 0, -m_distance))
+	view = translate(mat4(1), vec3(vx, vy, -m_distance))
 		* rotate(mat4(1), m_pitch, vec3(1, 0, 0))
 		* rotate(mat4(1), m_yaw,   vec3(0, 1, 0));
 
@@ -321,7 +321,9 @@ void Application::renderGUI() {
 	ImGui::SliderInt("framePasses", &framePasses, 0, 100);
 	ImGui::SliderInt("shadowResolution", &shadowResolution, 0, 100);
 	ImGui::SliderInt("lightBounces", &lightBounces, 0, 15);
-	 
+	ImGui::SliderFloat("light power", &pointLight.power, 0, 1500);
+	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -10, 10);
+
 	// helpful drawing options
 	ImGui::Checkbox("Show axis", &m_show_axis);
 	ImGui::SameLine();
@@ -343,7 +345,6 @@ void Application::renderGUI() {
 	ImGui::End();
 }
 
-
 // Builds ray shader program -> RAYTRACING SECTION
 void Application::buildRayBasicShader() {
 
@@ -357,27 +358,16 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 
 	// DRAW PLANE
 	vec3 pos = pointLight.position;
-
-	if (m_rayplane.modelTransform == mat4(1)) { cout << "skusshhhh \n"; }
 	mat4 modelview = view * m_rayplane.modelTransform;
 	
-
-
-	/*if (modelview != preView) {
-		mat4 transform = view * mat4(1);
-		vec4 v(view * vec4(pointLight.position, 1));
-		
-	cout << "old position: " << pointLight.position.x << "--" << pointLight.position.y << "--" << pointLight.position.z << "\n";
-		pointLight.position = v;
-		cout << "new position: " << v.x << "--" << v.y << "--" << v.z << "\n";
-	}*/
 	cout << "old position: " << pointLight.position.x << "--" << pointLight.position.y << "--" << pointLight.position.z << "\n";
 
 	mat4 transform = view * mat4(1);
-	vec4 v(proj*modelview * vec4(pointLight.position, 1));
+	vec3 v(modelview * vec4(pointLight.position, 1));
 
+	//pointLight.position = v;
 
-	cout << "new position: " << v.x << "--" << v.y << "--" << v.z << "--" << v.w << "\n";
+	//cout << "new position: " << v.x << "--" << v.y << "--" << v.z << "--" << v.w << "\n";
 	//pointLight.position = v;
 
 	preView = modelview;
@@ -396,10 +386,11 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 	glUniform1i(glGetUniformLocation(rayshader, "u_framePasses"), framePasses);
 	glUniform1f(glGetUniformLocation(rayshader, "u_time"), (float)time);
 	glUniform3fv(glGetUniformLocation(rayshader, "u_cameraPosition"), 1, value_ptr(camPos));
-
+	glUniform3fv(glGetUniformLocation(rayshader, "u_lightTranslation"), 1, value_ptr(lightTranslate));
 
 	// light stuff
-	glUniform3f(glGetUniformLocation(rayshader, "u_light.position"), pointLight.position.x, pointLight.position.y, pointLight.position.z);
+	glUniform3fv(glGetUniformLocation(rayshader, "u_light.position"), 1,value_ptr(pointLight.position));
+	glUniform3fv(glGetUniformLocation(rayshader, "u_light.position"), 1, value_ptr(pointLight.direction));
 	glUniform1f(glGetUniformLocation(rayshader, "u_light.radius"), pointLight.radius);
 	glUniform3f(glGetUniformLocation(rayshader, "u_light.color"), pointLight.color.x, pointLight.color.y, pointLight.color.z);
 	glUniform1f(glGetUniformLocation(rayshader, "u_light.power"), pointLight.power);
@@ -422,14 +413,13 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vec3),value_ptr(pointLight.position));
 
-
 	if (refreshRequired) {
 		accumulatedPasses = 0;
 		refreshRequired = false;
 	}
 	glUniform1i(glGetUniformLocation(rayshader, "u_accumulatedPasses"), accumulatedPasses);
 	// DRAW OBJECTS
-	pointLight.position = pos;
+	//pointLight.position = pos;
 }
 
 
@@ -572,7 +562,18 @@ void Application::scrollCallback(double xoffset, double yoffset) {
 
 
 void Application::keyCallback(int key, int scancode, int action, int mods) {
-	(void)key, (void)scancode, (void)action, (void)mods; // currently un-used
+	if (key == 265) {
+		vy--;
+	}
+	else if (key == 264) {
+		vy++;
+	}
+	else if (key == 263) {
+		vx++;
+	}
+	else if (key == 262) {
+		vx--;
+	}
 }
 
 

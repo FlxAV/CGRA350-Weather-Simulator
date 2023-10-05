@@ -4,12 +4,14 @@
 uniform mat4 uProjectionMatrix;
 uniform mat4 uModelViewMatrix;
 uniform vec3 uColor;
+uniform vec3 u_lightTranslation;
 
 // mesh data
 layout(location = 0) in vec3 aPosition;
 layout(location = 1) in vec3 aNormal;
 layout(location = 2) in vec2 aTexCoord;
 layout(location = 3) in vec3 lightPosition;
+
 
 // model data (this must match the input of the vertex shader)
 out VertexData {
@@ -18,7 +20,9 @@ out VertexData {
 	vec2 textureCoord;
 } v_out;
 
-out vec3 lightPos;
+out LightData{
+	vec3 position;
+}vl_out;
 
 void main() {
 	// transform vertex data to viewspace
@@ -26,7 +30,8 @@ void main() {
 	v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
 	v_out.textureCoord = aTexCoord;
 
-	lightPos = (uModelViewMatrix * vec4(lightPosition, 1)).xyz;
+	vl_out.position = u_lightTranslation + (uModelViewMatrix * vec4(lightPosition, 1)).xyz;
+
 
 	// set the screenspace position (needed for converting to fragment data)
 	gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1);

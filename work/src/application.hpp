@@ -10,7 +10,6 @@
 #include "cgra/cgra_mesh.hpp"
 #include "skeleton_model.hpp"
 
-
 // Basic model that holds the shader, mesh and transform for drawing.
 // Can be copied and modified for adding in extra information for drawing
 // including textures for texture mapping etc.
@@ -20,7 +19,7 @@
 struct basic_model {
 	GLuint shader = 0;
 	cgra::gl_mesh mesh;
-	glm::vec3 color{0.7};
+	glm::vec3 color{0.3};
 	glm::mat4 modelTransform{1.0};
 	GLuint texture;
 
@@ -78,12 +77,13 @@ struct Object {
 // Point light
 struct PointLight {
 	glm::vec3 position;
+	glm::vec3 direction;
 	float radius;
 	glm::vec3 color;
 	float power;
 	float reach; // Only points within this distance of the light will be affected
 	PointLight();
-	PointLight(const glm::vec3& nposition, float nradius, const glm::vec3& ncolor, float power, float reach);
+	PointLight(const glm::vec3& nposition, const glm::vec3& ndirection, float nradius, const glm::vec3& ncolor, float power, float reach);
 };
 
 // Sun light
@@ -131,6 +131,7 @@ private:
 	basic_model m_plane;;
 	basic_raymodel m_rayplane;
 	PointLight pointLight;
+	glm::vec3 lightTranslate = glm::vec3(0,0,0);
 
 
 	bool refreshRequired = false;
@@ -164,6 +165,8 @@ public:
 
 	int selectedObjectIndex = -1;
 	int width, height;
+	float vx = 0;
+	float vy = 0;
 
 
 	// disable copy constructors (for safety)
