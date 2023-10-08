@@ -67,6 +67,10 @@ namespace cgra {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_STATIC_DRAW);
 
 
+		// BelowThreshold attribute setup, bind it to location=4 - kahu
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(mesh_vertex), (void*)(offsetof(mesh_vertex, belowThreshold)));
+
 		// set the index count and draw modes
 		m.index_count = indices.size();
 		m.mode = mode;

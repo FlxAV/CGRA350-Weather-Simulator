@@ -14,7 +14,11 @@ SET(sources
 	"skeleton.cpp"
 	"skeleton_model.hpp"
 	"skeleton_model.cpp"
-	
+	"Terrain.hpp"
+	"Terrain.cpp"
+	"Noise.hpp"
+	"Noise.cpp"
+
 	"opengl.hpp"
 
 	"main.cpp"

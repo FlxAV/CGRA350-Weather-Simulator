@@ -6,7 +6,7 @@
 #define MAX_OBJECT_COUNT 64
 #define MAX_LIGHT_COUNT 4
 
-#define RENDER_DISTANCE 10000
+#define RENDER_DISTANCE 10000000
 #define EPSILON 0.0001
 #define PI 3.1415926538
 #define OUTLINE_WIDTH 0.004
@@ -372,6 +372,7 @@ void main() {
 
 			// Check if this camera ray is hitting the outline
 			Object selectedObject = u_objects[u_selectedSphereIndex];
+			
 			if (selectedObject.type == 1 && sphereIntersection(selectedObject.position, selectedObject.scale[0]+OUTLINE_WIDTH*selectedSphereDist, cameraRay, hitDist)) {
 				if (!sphereIntersection(selectedObject.position, selectedObject.scale[0], cameraRay, hitDist)) {
 					fb_color = OUTLINE_COLOR;
@@ -383,6 +384,8 @@ void main() {
 			}
 		}
 	} else {
+
+		// blur calculation
 		if (u_blur > 0.0 && u_accumulatedPasses > 0) centeredUV += vec2(rand(vec2(1, u_time)+fragUV.xy)*u_blur-u_blur/2, rand(vec2(2, u_time)+fragUV.yx)*u_blur-u_blur/2);
 		vec3 rayDir = (normalize(vec4(centeredUV, -1.0, 0.0)) * uModelViewMatrix).xyz;
 		Ray cameraRay = Ray(u_cameraPosition, rayDir);

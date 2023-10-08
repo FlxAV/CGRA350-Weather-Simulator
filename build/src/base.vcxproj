@@ -339,6 +339,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton.cpp" />
     <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton_model.hpp" />
     <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton_model.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Terrain.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Terrain.cpp" />
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Noise.hpp" />
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Noise.cpp" />
     <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\opengl.hpp" />
     <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\main.cpp" />
     <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\cgra\cgra_geometry.hpp" />

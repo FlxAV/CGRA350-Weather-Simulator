@@ -114,7 +114,7 @@ mesh_builder Application::drawPlane() {
 	std::vector<unsigned int> indices;
 	int subdivisions = 5; // You can adjust this value to control the plane's subdivisions
 
-	int size = 50;
+	int size = 100;
 	int pointsPerRow = (int)pow(2, subdivisions) + 1;
 
 	float u, v;
@@ -136,8 +136,8 @@ mesh_builder Application::drawPlane() {
 			float u = (float)i / subdivisions;
 			float v = (float)j / subdivisions;
 			//u = (float)j / (pointsPerRow - 1);
-			std::cout << u << "\n";
-			std::cout << v << "\n";
+			//std::cout << u << "\n";
+			//std::cout << v << "\n";
 			uvs.push_back(vec2(u, v));
 		}
 	}
@@ -174,7 +174,6 @@ mesh_builder Application::drawPlane() {
 	}
 
 	//lighting 
-	m_plane.color = { 1,1,1 };
 
 	return mb;
 }
@@ -220,10 +219,10 @@ PointLight::PointLight(const glm::vec3& nposition, const glm::vec3& ndirection, 
 
 Application::Application(GLFWwindow *window) : m_window(window) {
 	
-	//shader_builder sb;
-	//sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_vert.glsl"));
-	//sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_frag.glsl"));
-	//GLuint shader = sb.build();
+	shader_builder sb;
+	sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_vert.glsl"));
+	sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_frag.glsl"));
+	GLuint shader = sb.build();
 
 	////m_model.shader = shader;
 	////m_model.mesh = load_wavefront_data(CGRA_SRCDIR + std::string("/res//assets//teapot.obj")).build();
@@ -234,21 +233,26 @@ Application::Application(GLFWwindow *window) : m_window(window) {
 	//m_model.shader = shader;
 	//m_model.mesh = drawUVSphere().build();
 
-	m_rayplane.mesh = drawPlane().build();
+	//m_rayplane.mesh = drawPlane().build();
 	planeMaterial = Material(vec3(0.4F, 0.4F, 0.4F), vec3(0.75F, 0.75F, 0.75F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
-	m_rayplane.material = planeMaterial;
+	//m_rayplane.material = planeMaterial;
 	//placeBasicScene();
 	//recompileShader();
 
 	// Position , radius , color , power , reach
 	pointLight = PointLight(vec3(1.0,5.0,1.0),vec3(-1,-1,0),6, vec3(0.7), 15, 15);
-	buildRayBasicShader();
+	//buildRayBasicShader();
 
-	//pointLight.position += vec3(5, 0, 0);
-	glUseProgram(rayshader);
-	glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
-	//placeBasicScene();
-	//recompileShader();
+	//glUseProgram(rayshader);
+	//glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
+
+	plane.shader = shader;
+	plane.resolution = 850;
+	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
+	plane.createMesh();
+	plane.color = vec3(1);
+
+
 
 	//glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 
@@ -276,8 +280,8 @@ void Application::render() {
 	glEnable(GL_DEPTH_TEST); 
 	glDepthFunc(GL_LESS);
 
-	// projection matrix
-	proj = perspective(1.f, float(width) / height, 0.1f, 1000.f);
+	// projection matrix - CHANGED Z FOR MORE DISTANCE 
+	proj = perspective(1.f, float(width) / height, 0.1f, 100000000.f);
 
 	// view matrix
 	view = translate(mat4(1), vec3(vx, vy, -m_distance))
@@ -300,8 +304,10 @@ void Application::render() {
 
 	//m_model.draw(view, proj);
 	//m_plane.draw(view, proj);
-	drawBasicScene(view, proj, preTime);
-
+	//drawBasicScene(view, proj, preTime);
+	
+	
+	plane.draw(view, proj);
 }
 
 
@@ -317,13 +323,23 @@ void Application::renderGUI() {
 	ImGui::SliderFloat("Pitch", &m_pitch, -pi<float>() / 2, pi<float>() / 2, "%.2f");
 	ImGui::SliderFloat("Yaw", &m_yaw, -pi<float>(), pi<float>(), "%.2f");
 	ImGui::SliderFloat("Distance", &m_distance, 0, 100, "%.2f", 2.0f);
+	ImGui::Separator();
 
 	ImGui::SliderInt("framePasses", &framePasses, 0, 100);
 	ImGui::SliderInt("shadowResolution", &shadowResolution, 0, 100);
 	ImGui::SliderInt("lightBounces", &lightBounces, 0, 15);
-	ImGui::SliderFloat("light power", &pointLight.power, 0, 1500);
-	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -10, 10);
-
+	ImGui::SliderFloat("light power", &pointLight.power, 0, 15000);
+	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 15000);
+	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -250, 250);
+	ImGui::SliderFloat3("light color", value_ptr(pointLight.color), 0, 1);
+	ImGui::Separator();
+	ImGui::SliderFloat3("Object albedo", value_ptr(planeMaterial.albedo), 0, 1);
+	ImGui::SliderFloat3("Object specular", value_ptr(planeMaterial.specular), 0, 1);
+	ImGui::SliderFloat3("Object emission", value_ptr(planeMaterial.emission), 0, 1);
+	ImGui::SliderFloat("Object emissionStrength", &planeMaterial.emissionStrength, 0, 1);
+	ImGui::SliderFloat("Object roughness", &planeMaterial.roughness, 0, 1);
+	ImGui::SliderFloat("Object spec Highlight", &planeMaterial.specularHighlight, 0, 1);
+	ImGui::SliderFloat("Object spec EXPO", &planeMaterial.specularExponent, 0, 11);
 	// helpful drawing options
 	ImGui::Checkbox("Show axis", &m_show_axis);
 	ImGui::SameLine();
@@ -334,6 +350,8 @@ void Application::renderGUI() {
 
 	
 	ImGui::Separator();
+
+
 
 	// example of how to use input boxes
 	static float exampleInput;
@@ -357,23 +375,8 @@ void Application::buildRayBasicShader() {
 void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,double time ) {
 
 	// DRAW PLANE
-	vec3 pos = pointLight.position;
 	mat4 modelview = view * m_rayplane.modelTransform;
-	
-	cout << "old position: " << pointLight.position.x << "--" << pointLight.position.y << "--" << pointLight.position.z << "\n";
 
-	mat4 transform = view * mat4(1);
-	vec3 v(modelview * vec4(pointLight.position, 1));
-
-	//pointLight.position = v;
-
-	//cout << "new position: " << v.x << "--" << v.y << "--" << v.z << "--" << v.w << "\n";
-	//pointLight.position = v;
-
-	preView = modelview;
-
-	//pointLight.position = proj * modelview * vec4(pointLight.position, 1);
-	// plane vertex stuff
 	glUseProgram(rayshader); // load shader and variables
 	accumulatedPasses += 1;
 
@@ -390,25 +393,22 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 
 	// light stuff
 	glUniform3fv(glGetUniformLocation(rayshader, "u_light.position"), 1,value_ptr(pointLight.position));
-	glUniform3fv(glGetUniformLocation(rayshader, "u_light.position"), 1, value_ptr(pointLight.direction));
 	glUniform1f(glGetUniformLocation(rayshader, "u_light.radius"), pointLight.radius);
 	glUniform3f(glGetUniformLocation(rayshader, "u_light.color"), pointLight.color.x, pointLight.color.y, pointLight.color.z);
 	glUniform1f(glGetUniformLocation(rayshader, "u_light.power"), pointLight.power);
-	glUniform1f(glGetUniformLocation(rayshader, "u_lights.reach"), pointLight.reach);
+	glUniform1f(glGetUniformLocation(rayshader, "u_light.reach"), pointLight.reach);
 
 
-	// plane  material stuff
-	glUniform3f(glGetUniformLocation(rayshader, "u_planeMaterial.albedo"), m_rayplane.material.albedo.x, m_rayplane.material.albedo.y, m_rayplane.material.albedo.z);
-	glUniform3f(glGetUniformLocation(rayshader, "u_planeMaterial.specular"), m_rayplane.material.specular.x, m_rayplane.material.specular.y, m_rayplane.material.specular.z);
-	glUniform3f(glGetUniformLocation(rayshader, "u_planeMaterial.emission"), m_rayplane.material.emission.x, m_rayplane.material.emission.y, m_rayplane.material.emission.z);
-	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.emissionStrength"), m_rayplane.material.emissionStrength);
-	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.roughness"), m_rayplane.material.roughness);
-	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularHighlight"), m_rayplane.material.specularHighlight);
-	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularExponent"), m_rayplane.material.specularExponent);
+	// plane material stuff
+	glUniform3fv(glGetUniformLocation(rayshader, "u_planeMaterial.albedo"), 1,value_ptr(planeMaterial.albedo));
+	glUniform3fv(glGetUniformLocation(rayshader, "u_planeMaterial.specular"), 1,value_ptr(planeMaterial.specular));
+	glUniform3fv(glGetUniformLocation(rayshader, "u_planeMaterial.emission"), 1,value_ptr(planeMaterial.emission));
+	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.emissionStrength"), planeMaterial.emissionStrength);
+	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.roughness"), planeMaterial.roughness);
+	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularHighlight"), planeMaterial.specularHighlight);
+	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularExponent"), planeMaterial.specularExponent);
 
-	m_rayplane.mesh.draw(); // draw
-
-
+	plane.mesh.draw(); // draw
 	// do the same thing for UVs but bind it to location=2 - the data is treated in lots of 2 (2 floats = vec2)
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vec3),value_ptr(pointLight.position));
@@ -419,74 +419,8 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj,dou
 	}
 	glUniform1i(glGetUniformLocation(rayshader, "u_accumulatedPasses"), accumulatedPasses);
 	// DRAW OBJECTS
-	//pointLight.position = pos;
-}
 
-
-
-
-// Draws ray tracer using the compiled shaders -> RAYTRACING SECTION
-void Application::drawRayShader() {
-	// TODO
-}
-
-// ?? draw  -> RAYTRACING SECTION
-
-
-
-
-
-
-
-bool Application::sphereIntersection(glm::vec3 position, float radius, glm::vec3 rayOrigin, glm::vec3 rayDirection, float* hitDistance) {
-	float t = glm::dot(position - rayOrigin, rayDirection);
-	glm::vec3 p = rayOrigin + rayDirection * t;
-
-	float y = glm::length(position - p);
-	if (y < radius) {
-		float x = sqrt(radius * radius - y * y);
-		float t1 = t - x;
-		if (t1 > 0) {
-			*hitDistance = t1;
-			return true;
-		}
-
-	}
-
-	return false;
-}
-
-bool Application::boxIntersection(glm::vec3 position, glm::vec3 size, glm::vec3 rayOrigin, glm::vec3 rayDirection, float* hitDistance) {
-	float t1 = -1000000000000.0;
-	float t2 = 1000000000000.0;
-
-	glm::vec3 boxMin = position - size / 2.0f;
-	glm::vec3 boxMax = position + size / 2.0f;
-
-	glm::vec3 t0s = (boxMin - rayOrigin) / rayDirection;
-	glm::vec3 t1s = (boxMax - rayOrigin) / rayDirection;
-
-	glm::vec3 tsmaller = min(t0s, t1s);
-	glm::vec3 tbigger = max(t0s, t1s);
-
-	t1 = std::max({ t1, tsmaller.x, tsmaller.y, tsmaller.z });
-	t2 = std::min({ t2, tbigger.x, tbigger.y, tbigger.z });
-
-	*hitDistance = t1;
-
-	return t1 >= 0 && t1 <= t2;
-}
-
-bool Application::planeIntersection(glm::vec3 planeNormal, glm::vec3 planePoint, glm::vec3 rayOrigin, glm::vec3 rayDirection, float* hitDistance)
-{
-	float denom = glm::dot(planeNormal, rayDirection);
-	if (abs(denom) > 0.0001) {
-		glm::vec3 d = planePoint - rayOrigin;
-		*hitDistance = glm::dot(d, planeNormal) / denom;
-		return (*hitDistance >= 0.0001);
-	}
-
-	return false;
+	//plane.mesh.draw(); // draw
 }
 
 
@@ -513,37 +447,6 @@ void Application::cursorPosCallback(double xpos, double ypos) {
 	m_mousePosition = vec2(xpos, ypos);
 }
 
-
-//
-void Application::drawScene(const glm::mat4& view, const glm::mat4 proj) {
-
-	double preTime = glfwGetTime();
-
-	glUseProgram(rayshader);
-	// scene uniform variables
-	if (refreshRequired) {
-		accumulatedPasses = 0;
-		refreshRequired = false;
-		glUniform1i(accumulatedPassesUniformLocation, accumulatedPasses); // If the shader receives a value of 0 for accumulatedPasses, it will discard the buffer and just output what it rendered on that frame.
-	}
-
-	glUniform1f(timeUniformLocation, (float)preTime);
-	glUniform3f(camPosUniformLocation, 0, 0, 0);
-	mat4 rotationMatrix = mat4(1);
-
-	glUniformMatrix4fv(rotationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(rotationMatrix));
-	glUniform1f(aspectRatioUniformLocation, (float)width / height);
-
-
-	glUniform1i(directOutPassUniformLocation, 0);
-	accumulatedPasses += 1;
-
-	glUniform1i(directOutPassUniformLocation, 1);
-	glUniform1i(accumulatedPassesUniformLocation, accumulatedPasses);
-
-
-
-}
 
 
 void Application::mouseButtonCallback(int button, int action, int mods) {

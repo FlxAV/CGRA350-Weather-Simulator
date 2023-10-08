@@ -10,6 +10,7 @@ uniform vec3 u_lightTranslation;
 layout(location = 0) in vec3 aPosition;
 layout(location = 1) in vec3 aNormal;
 layout(location = 2) in vec2 aTexCoord;
+
 layout(location = 3) in vec3 lightPosition;
 
 
@@ -30,7 +31,8 @@ void main() {
 	v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
 	v_out.textureCoord = aTexCoord;
 
-	vl_out.position = u_lightTranslation + (uModelViewMatrix * vec4(lightPosition, 1)).xyz;
+	// light position 
+	vl_out.position = (uModelViewMatrix * vec4(lightPosition+u_lightTranslation, 1)).xyz;
 
 
 	// set the screenspace position (needed for converting to fragment data)

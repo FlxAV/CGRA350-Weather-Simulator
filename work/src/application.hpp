@@ -9,6 +9,7 @@
 #include "opengl.hpp"
 #include "cgra/cgra_mesh.hpp"
 #include "skeleton_model.hpp"
+#include "Terrain.hpp"
 
 // Basic model that holds the shader, mesh and transform for drawing.
 // Can be copied and modified for adding in extra information for drawing
@@ -41,7 +42,6 @@ struct Material {
 
 struct basic_rayplane {
 	cgra::gl_mesh mesh;
-	glm::vec3 color{ 0.7 };
 	glm::mat4 modelTransform{ 1.0 };
 	GLuint texture;
 	Material material;
@@ -131,39 +131,34 @@ private:
 	basic_model m_plane;;
 	basic_raymodel m_rayplane;
 	PointLight pointLight;
+
+	// Terrain
+	glm::vec3 bottom = glm::vec3(0, 1, 0);
+	mesh_builder floorMesh;
+	int floorRes = 1000;
+	Terrain plane = Terrain(floorMesh, floorRes, bottom);
+
+	// Raytracing fields
 	glm::vec3 lightTranslate = glm::vec3(0,0,0);
-
-
 	bool refreshRequired = false;
 	int accumulatedPasses = 0;
-	glm::mat4 preView = glm::mat4(1);
-	//glm::vec3 testpos = vec3(0);
 	glm::vec3 camPos;
+	int shadowResolution = 20;
+	int lightBounces = 5;
+	int framePasses = 10;
 
 public:
 	// setup
 	Application(GLFWwindow *);
 
 	// ray - shader cache
-	GLuint directOutPassUniformLocation, accumulatedPassesUniformLocation, timeUniformLocation, camPosUniformLocation, rotationMatrixUniformLocation, aspectRatioUniformLocation, debugKeyUniformLocation;
 	GLuint rayshader = 0;
 	GLuint boundShader;
-	std::vector<Object> objects;
-	std::vector<PointLight> lights;
 	Material planeMaterial;
 
-	glm::vec3 cameraPosition = glm::vec3(0, 1, 2);
+	// camera
 	float cameraYaw = 0.0f, cameraPitch = 0.0f;
-	int shadowResolution = 20;
-	int lightBounces = 5;
-	int framePasses = 10;
 
-	float blur = 0.002f; // Slight blur (les than a pixel) = anti-aliasing
-	float bloomRadius = 0.02f;
-	float bloomIntensity = 0.5f;
-	bool planeVisible = true;
-
-	int selectedObjectIndex = -1;
 	int width, height;
 	float vx = 0;
 	float vy = 0;
@@ -177,22 +172,11 @@ public:
 	cgra::mesh_builder drawUVSphere();
 	cgra::mesh_builder drawPlane();
 
-	// draw the rays in the shaders
+	// methods for the raytracing section
 	void buildRayShader();
 	void buildRayBasicShader();
-	void drawRayShader();
-	void recompileShader();
-
-	//object data
-	void sendObjectData(int objectIndex);
-	void bind(GLuint shaderProgram);
-	void unbind();
-	void drawScene(const glm::mat4& view, const glm::mat4 proj);
-	bool sphereIntersection(glm::vec3 position, float radius, glm::vec3 rayOrigin, glm::vec3 rayDirection, float* hitDistance);
-	bool boxIntersection(glm::vec3 position, glm::vec3 size, glm::vec3 rayOrigin, glm::vec3 rayDirection, float* hitDistance);
-	bool planeIntersection(glm::vec3 planeNormal, glm::vec3 planePoint, glm::vec3 rayOrigin, glm::vec3 rayDirection, float* hitDistance);
-	void placeBasicScene();
 	void drawBasicScene(const glm::mat4& view, const glm::mat4 proj, double time);
+	
 	// rendering callbacks (every frame)
 	void render();
 	void renderGUI();

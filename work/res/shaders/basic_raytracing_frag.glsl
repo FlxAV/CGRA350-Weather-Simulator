@@ -97,11 +97,11 @@ bool planeIntersection(Ray ray, out float hitDistance)
 // Iterate through each triangle(face) -> check whether ray collides with face
 bool terrainLightBlock(Ray lightRay){
 	
-	//vec3 v0,v1,v2;
+	
 	//for (int i=0;i<faceArray.size();i++){
 		
-		//vec3 e1 = v1 - v0;
-    	//vec3 e2 = v2 - v0;
+		//vec3 e1 = faceArray[i].v1 - faceArray[i].v0;
+    	//vec3 e2 = faceArray[i].v2 - faceArray[i].v0;
     	//vec3 h = cross(lightRay.direction, e2);
     	//float a = dot(e1, h);
     
@@ -123,7 +123,7 @@ bool terrainLightBlock(Ray lightRay){
     
     	//t = f * dot(e2, q);
     
-    
+    // Should return true
     return false;
 
 }
@@ -183,7 +183,7 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed,
 	vec3 directIllumination = vec3(0);
 	float lightDistance = length(light.position - point.position);
 	
-	//if (lightDistance > light.reach) {return directIllumination;}
+	if (lightDistance > light.reach) {return directIllumination;}
 
 	float diffuse = clamp(dot(point.normal, normalize(light.position-point.position)), 0.0, 1.0);
 
@@ -192,8 +192,8 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed,
 		int shadowRays = int(u_shadowResolution/(lightDistance*lightDistance)+1); // There must be a better way to find the right amount of shadow rays
 		int shadowRayHits = 0;
 		for (int i = 0; i<shadowRays; i++) {
-			// Sample a point on the light sphere
 			
+			// Sample a point on the light sphere
 			vec3 lightSurfacePoint = light.position + normalize(vec3(rand(vec2(i+seed, 1)+point.position.xy), rand(vec2(i+seed, 2)+point.position.yz), rand(vec2(i+seed, 3)+point.position.xz)));
 			vec3 lightDir = normalize(lightSurfacePoint - point.position);
 			vec3 rayOrigin = point.position + lightDir * EPSILON * 2.0;
@@ -208,13 +208,12 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed,
 			}
 
 		}
-
 		// Diffuse 
 		float attenuation = lightDistance * lightDistance;
-		directIllumination += light.color * light.power * diffuse * point.material.albedo * (1.0-float(shadowRayHits)/shadowRays) / attenuation;
+		directIllumination += light.color * light.power* diffuse * point.material.albedo * (1.0-float(shadowRayHits)/shadowRays) / attenuation;
 	
 		// Specular highlight
-		vec3 lightDir = light.direction;
+		vec3 lightDir = normalize(f_in.position - point.position);
 
 		vec3 reflectedLightDir = reflect(lightDir, point.normal);
 		vec3 cameraDir = normalize(observerPos - point.position);
@@ -226,6 +225,13 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed,
 	return directIllumination;
 }
 
+
+// SunlightIllumination
+void sunlightIllumination(){
+	
+	
+
+}
 
 
 vec3 computeSceneColor(Ray cameraRay, float seed) {
@@ -294,7 +300,7 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 				break;
 			}
 		} else {
-			// The ray didn't hit anything, so we add the sky's color and we're done
+			// The ray didn't hit anything :(
 			totalIllumination += energy;
 			break;
 		}
@@ -307,17 +313,11 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 
 void main() {
 
-	///////////////////////////
+	/////////////////////////// 
 
 
 
 	///////////////////////////
-
-	//PointLight light = u_light;
-	//light.position = (uModelViewMatrix * vec4(light.position, 1)).xyz;
-
-	vec2 centeredUV = (f_in.textureCoord * 2 - vec2(1)) * vec2(u_aspectRatio, 1.0);
-	//vec3 rayDir = (normalize(vec4(centeredUV, -1.0, 0.0))).xyz; // MODELVIEW
 
 	vec3 rayDir = f_in.normal - u_cameraPosition;
 	vec3 eye = normalize(-u_cameraPosition);
@@ -342,12 +342,4 @@ void main() {
 		// Add last frame back (progressive sampling)
 		fb_color += texture(u_screenTexture, f_in.textureCoord);
 	}
-
-
-	// calculate lighting (hack)
-	//float light = abs(dot(normalize(f_in.normal), eye));
-	//vec3 color = mix(uColor / 4, uColor, light);
-
-	// output to the frambuffer
-	//fb_color = vec4(color, 1);
 }

@@ -39,6 +39,7 @@ namespace cgra {
 		glm::vec3 pos{0};
 		glm::vec3 norm{0};
 		glm::vec2 uv{0};
+		float belowThreshold{ 0.0f };
 	};
 
 
@@ -74,6 +75,11 @@ namespace cgra {
 		}
 
 		gl_mesh build() const;
+		
+		void clear() {
+			vertices.clear();
+			indices.clear();
+		}
 
 		void print() const {
 			std::cout << "pos" << std::endl;

@@ -10,6 +10,12 @@
     <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton_model.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Terrain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Noise.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -34,6 +40,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\skeleton_model.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Terrain.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\Noise.hpp">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\charl\OneDrive\Documents\Uni\CGRA - 350\Assignments\Project\Weather-Simulator\work\src\opengl.hpp">
