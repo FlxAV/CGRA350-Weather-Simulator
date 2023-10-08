@@ -6,6 +6,7 @@ uniform mat4 uModelViewMatrix;
 uniform vec3 uColor;
 uniform vec3 u_lightTranslation;
 uniform float u_wavetime;
+uniform float u_time;
 
 // mesh data
 layout(location = 0) in vec3 aPosition;
@@ -42,17 +43,17 @@ float noise(vec2 st) {
 
 float waveFunction(vec3 position, vec2 direction, float waveLength, float waveSpeed, float waveHeight) {
     float dist = dot(position.xz, direction);
-    return waveHeight * sin(u_wavetime * waveSpeed + dist * 2.0 * 3.14159 / waveLength);
+    return waveHeight * sin(u_time * waveSpeed + dist * 2.0 * 3.14159 / waveLength);
 }
 
 float dWaveFunctiondx(vec3 position, vec2 direction, float waveLength, float waveSpeed, float waveHeight) {
     float distDerivativeX = direction.x;
-    return waveHeight * cos(u_wavetime * waveSpeed + dot(position.xz, direction) * 2.0 * 3.14159 / waveLength) * distDerivativeX;
+    return waveHeight * cos(u_time * waveSpeed + dot(position.xz, direction) * 2.0 * 3.14159 / waveLength) * distDerivativeX;
 }
 
 float dWaveFunctiondz(vec3 position, vec2 direction, float waveLength, float waveSpeed, float waveHeight) {
     float distDerivativeZ = direction.y;
-    return waveHeight * cos(u_wavetime * waveSpeed + dot(position.xz, direction) * 2.0 * 3.14159 / waveLength) * distDerivativeZ;
+    return waveHeight * cos(u_time * waveSpeed + dot(position.xz, direction) * 2.0 * 3.14159 / waveLength) * distDerivativeZ;
 }
 
 ///////////////////
@@ -89,7 +90,6 @@ void main() {
     
 	
     v_out.position = (uModelViewMatrix * vec4(pos, 1)).xyz;
-	//v_out.normal = normalize((uModelViewMatrix * vec4(norm, 0)).xyz);
 	v_out.textureCoord = aTexCoord;
 
 	// light position 

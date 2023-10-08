@@ -250,7 +250,7 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	plane.resolution = 350;
 	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(100, 1, 100));
 	plane.createMesh();
-	plane.color = vec3(1);
+	//plane.color = vec3(1);
 
 
 
