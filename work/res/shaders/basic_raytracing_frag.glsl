@@ -1,6 +1,6 @@
 #version 430 core
 
-#define RENDER_DISTANCE 10000
+#define RENDER_DISTANCE 1000000
 #define EPSILON 0.0001
 #define PI 3.1415926538
 #define OUTLINE_WIDTH 0.004
@@ -15,10 +15,15 @@ uniform float u_aspectRatio;
 uniform sampler2D u_screenTexture;
 uniform int u_framePasses;
 uniform float u_time;
+
 uniform int u_lightBounces;
 uniform int u_shadowResolution;
 uniform int u_accumulatedPasses;
 uniform vec3 u_cameraPosition;
+
+//layout(std430, binding = 0) buffer VertexBuffer {
+   // vec3 vertices[];
+//};
 
 // viewspace data (this must match the output of the fragment shader) -> plane data
 in VertexData {
@@ -93,37 +98,93 @@ bool planeIntersection(Ray ray, out float hitDistance)
     return false; 
 } 
 
+
+
+bool terrainIntersection(Ray ray) {
+    bool hit = false;
+    float t, u, v;
+
+   // for (int i = 0; i < vertices.length(); i += 3) {
+        
+        vec3 v0 = vec3(0);//vertices[i];
+        vec3 v1 = vec3(0);//vertices[i+1];
+        vec3 v2 = vec3(0);//vertices[i+2];
+
+
+        vec3 edge1 = v1 - v0;
+        vec3 edge2 = v2 - v0;
+        vec3 h = cross(ray.direction, edge2);
+        float a = dot(edge1, h);
+
+        //if (a > -EPSILON && a < EPSILON) {
+           // continue; // Ray is parallel to the triangle.
+       // }
+
+        float f = 1.0 / a;
+        vec3 s = ray.origin - v0;
+        u = f * dot(s, h);
+
+        //if (u < 0.0 || u > 1.0) {
+            //continue;
+       // }
+
+        vec3 q = cross(s, edge1);
+        v = f * dot(ray.direction, q);
+
+        //if (v < 0.0 || u + v > 1.0) {
+           // continue;
+        //}
+
+        t = f * dot(edge2, q);
+
+        if (t > EPSILON) {
+         
+            hit = true;
+            // If you only want the first intersection, uncomment the following line:
+            // break;
+        }
+    //}
+
+    return hit;
+}
+
+
 // TODO: if coordinate blocks plane -> MOUNTAINS 
 // Iterate through each triangle(face) -> check whether ray collides with face
+
 bool terrainLightBlock(Ray lightRay){
 	
-	
-	//for (int i=0;i<faceArray.size();i++){
-		
-		//vec3 e1 = faceArray[i].v1 - faceArray[i].v0;
-    	//vec3 e2 = faceArray[i].v2 - faceArray[i].v0;
-    	//vec3 h = cross(lightRay.direction, e2);
-    	//float a = dot(e1, h);
+    bool hit = false;
+   // for (int i = 0; i < vertices.length(); i += 3) {
+        vec3 v0 = vec3(0);//vertices[i];
+        vec3 v1 = vec3(0);//vertices[i+1];
+        vec3 v2 = vec3(0);//vertices[i+2];
+
+        vec3 e1 = v1 - v0;
+    	vec3 e2 = v2 - v0;
+    	vec3 h = cross(lightRay.direction, e2);
+    	float a = dot(e1, h);
     
-    	//if (a > -EPSILON && a < EPSILON)
-        //	return false;
+    	if (a > -EPSILON && a < EPSILON)
+        	return false;
     
-    	//float f = 1.0 / a;
-    	//vec3 s = lightRay.origin - v0;
-    	//float u = f * dot(s, h);
+    	float f = 1.0 / a;
+    	vec3 s = lightRay.origin - v0;
+    	float u = f * dot(s, h);
     
-    	//if (u < 0.0 || u > 1.0)
-        //	return false;
+    	if (u < 0.0 || u > 1.0)
+        	return false;
     
-    	//vec3 q = cross(s, e1);
-    	//float v = f * dot(lightRay.direction, q);
+    	vec3 q = cross(s, e1);
+    	float v = f * dot(lightRay.direction, q);
     
-    	//if (v < 0.0 || u + v > 1.0)
-        //	return false;
-    
-    	//t = f * dot(e2, q);
-    
-    // Should return true
+    	if (v < 0.0 || u + v > 1.0)
+        	return false;
+
+
+    	;
+    //}
+
     return false;
 
 }
@@ -189,7 +250,8 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed,
 
 	if (diffuse > EPSILON || point.material.roughness < 1.0) {
 		// Shadow raycasting
-		int shadowRays = int(u_shadowResolution/(lightDistance*lightDistance)+1); // There must be a better way to find the right amount of shadow rays
+		int shadowRays = int(u_shadowResolution/(lightDistance*lightDistance)+1); 
+		// There must be a better way to find the right amount of shadow rays
 		int shadowRayHits = 0;
 		for (int i = 0; i<shadowRays; i++) {
 			
@@ -210,7 +272,10 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed,
 		}
 		// Diffuse 
 		float attenuation = lightDistance * lightDistance;
-		directIllumination += light.color * light.power* diffuse * point.material.albedo * (1.0-float(shadowRayHits)/shadowRays) / attenuation;
+		float shadowFactor = (1.0 - float(shadowRayHits) / shadowRays);
+		shadowFactor = pow(shadowFactor, 2.0); 
+
+		directIllumination += light.color * light.power* diffuse * point.material.albedo * shadowFactor / attenuation;
 	
 		// Specular highlight
 		vec3 lightDir = normalize(f_in.position - point.position);
@@ -253,12 +318,14 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 			PointLight light = u_light;
 			light.position = fl_in.position;
 
+
 			vec3 lightDir = normalize(f_in.position - light.position);
-			Ray lightRay = Ray(light.position,light.direction);
+			Ray lightRay = Ray(light.position, lightDir);
 
 
+			//if (!terrainIntersection(lightRay))
 
-			if (!terrainLightBlock(lightRay))totalIllumination += energy * computeDirectIllumination(hitPoint, rayOrigin, seed,light);
+			totalIllumination += energy * computeDirectIllumination(hitPoint, rayOrigin, seed,light);
 
 
 			// Part three: Indirect light (other objects)

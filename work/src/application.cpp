@@ -219,10 +219,10 @@ PointLight::PointLight(const glm::vec3 & nposition, const glm::vec3 & ndirection
 
 Application::Application(GLFWwindow * window) : m_window(window) {
 
-	/*shader_builder sb;
+	shader_builder sb;
 	sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_vert.glsl"));
 	sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_frag.glsl"));
-	GLuint shader = sb.build();*/
+	GLuint shader = sb.build();
 
 	////m_model.shader = shader;
 	////m_model.mesh = load_wavefront_data(CGRA_SRCDIR + std::string("/res//assets//teapot.obj")).build();
@@ -247,8 +247,8 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 
 	//plane.shader = shader;
-	plane.resolution = 850;
-	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
+	plane.resolution = 350;
+	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(100, 1, 100));
 	plane.createMesh();
 	plane.color = vec3(1);
 
@@ -330,7 +330,7 @@ void Application::renderGUI() {
 	ImGui::SliderInt("lightBounces", &lightBounces, 0, 15);
 	ImGui::SliderFloat("light power", &pointLight.power, 0, 15000);
 	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 15000);
-	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -250, 250);
+	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -50, 50);
 	ImGui::SliderFloat3("light color", value_ptr(pointLight.color), 0, 1);
 	ImGui::Separator();
 	ImGui::SliderFloat3("Object albedo", value_ptr(planeMaterial.albedo), 0, 1);
@@ -411,6 +411,13 @@ void Application::drawBasicScene(const glm::mat4 & view, const glm::mat4 proj, d
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.roughness"), planeMaterial.roughness);
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularHighlight"), planeMaterial.specularHighlight);
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularExponent"), planeMaterial.specularExponent);
+
+	// face buffer
+	//GLuint ssbo;
+	//glGenBuffers(1, &ssbo);
+	//glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+	//glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::vec3) * plane.vertices.size(), &plane.vertices[0], GL_STATIC_DRAW);
+	//glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // Unbind
 
 	plane.mesh.draw(); // draw
 	// do the same thing for UVs but bind it to location=2 - the data is treated in lots of 2 (2 floats = vec2)

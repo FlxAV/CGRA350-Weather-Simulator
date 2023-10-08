@@ -16,6 +16,11 @@ layout(location = 3) in vec3 lightPosition;
 
 layout(location = 4) in float aBelowThreshold;
 
+ //layout(std430, binding = 0) buffer VertexBuffer {
+  //     vec3 vertices[];
+  // };
+
+
 // model data (this must match the input of the vertex shader)
 out VertexData {
 	vec3 position;
@@ -26,6 +31,7 @@ out VertexData {
 out LightData{
 	vec3 position;
 }vl_out;
+
 
 ///////////////// Terrain Methods - KAHU
 
@@ -53,11 +59,37 @@ float dWaveFunctiondz(vec3 position, vec2 direction, float waveLength, float wav
 
 void main() {
 	// transform vertex data to viewspace
-	
-	
-    v_out.position = (uModelViewMatrix * vec4(aPosition, 1)).xyz;
-	v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
+	vec3 pos = aPosition;
+	vec3 norm = aNormal;
 
+    if (aBelowThreshold > 0.5) {
+        vec2 st = aPosition.xz * 0.1;
+        vec2 waveDirection = normalize(vec2(noise(st), noise(st + 10.0)));
+        float waveLength = 0.1;
+        float waveSpeed = 3;
+        float waveHeight = 0.1;
+
+        pos.y += waveFunction(pos, waveDirection, waveLength, waveSpeed, waveHeight);
+        
+        // Calculate the tangent vectors
+        vec3 tangentX = vec3(1.0, dWaveFunctiondx(pos, waveDirection, waveLength, waveSpeed, waveHeight), 0.0);
+        vec3 tangentZ = vec3(0.0, dWaveFunctiondz(pos, waveDirection, waveLength, waveSpeed, waveHeight), 1.0);
+        
+        // Compute the normal by crossing the two tangents
+        //norm = (uModelViewMatrix * vec4(aNormal, 0)).xyz;
+
+         // Compute the normal by crossing the two tangents
+        v_out.normal = normalize(cross(tangentZ, tangentX));
+        
+        // Transform the normal by the uModelViewMatrix
+        v_out.normal = (uModelViewMatrix * vec4(v_out.normal, 0)).xyz;
+    } else {
+        v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
+    }
+    
+	
+    v_out.position = (uModelViewMatrix * vec4(pos, 1)).xyz;
+	//v_out.normal = normalize((uModelViewMatrix * vec4(norm, 0)).xyz);
 	v_out.textureCoord = aTexCoord;
 
 	// light position 

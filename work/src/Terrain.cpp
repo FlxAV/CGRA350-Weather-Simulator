@@ -52,7 +52,8 @@ Terrain::Terrain(mesh_builder meshb, int resolution, glm::vec3 localUp) {
 void Terrain::createMesh() {
     int vertexCount = resolution * resolution;
     perlinMap();
-    std::vector<vec3> vertices(vertexCount);
+    vertices = vector<vec3>(vertexCount);
+
     std::vector<vec3> normals(vertexCount, vec3(0.0f)); // Store normals
     std::vector<vec2> uvs(vertexCount); // Store UVs
     std::vector<unsigned int> triangles(6 * (resolution - 1) * (resolution - 1));
@@ -69,7 +70,7 @@ void Terrain::createMesh() {
 
             vertices[i] = pointOnUnitCube;
             vertices[i].y += noiseMap[i];
-            normals[i] = vec3(0, 1, 0.0f);// computeNormal(noiseMap, x, y, resolution);
+            normals[i] = computeNormal(noiseMap, x, y, resolution);
 
             // Compute UVs based on percent
             uvs[i] = percent;

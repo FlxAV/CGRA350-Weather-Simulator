@@ -29,4 +29,7 @@ public:
 	glm::mat4 modelTransform{ 1.0 };
 	std::vector<float> noiseMap;
 	std::vector<float> belowThreshold;
+
+
+	std::vector<vec3> vertices;
 };
