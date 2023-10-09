@@ -207,7 +207,7 @@ PointLight::PointLight() = default;
 PointLight::PointLight(const glm::vec3 & nposition, const glm::vec3 & ndirection, float nradius, const glm::vec3 & ncolor, float power, float reach) {
 	position = nposition;
 	direction = ndirection;
-	radius = nradius;
+	this->radius = nradius;
 	color = ncolor;
 
 	this->power = power;
@@ -219,10 +219,10 @@ PointLight::PointLight(const glm::vec3 & nposition, const glm::vec3 & ndirection
 
 Application::Application(GLFWwindow * window) : m_window(window) {
 
-	shader_builder sb;
-	sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_vert.glsl"));
-	sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_frag.glsl"));
-	GLuint shader = sb.build();
+	//shader_builder sb;
+	//sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_vert.glsl"));
+	//sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_frag.glsl"));
+	//GLuint shader = sb.build();
 
 	////m_model.shader = shader;
 	////m_model.mesh = load_wavefront_data(CGRA_SRCDIR + std::string("/res//assets//teapot.obj")).build();
@@ -247,8 +247,8 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 
 	//plane.shader = shader;
-	plane.resolution = 350;
-	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(100, 1, 100));
+	plane.resolution = 850;
+	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
 	plane.createMesh();
 	//plane.color = vec3(1);
 
@@ -328,9 +328,11 @@ void Application::renderGUI() {
 	ImGui::SliderInt("framePasses", &framePasses, 0, 100);
 	ImGui::SliderInt("shadowResolution", &shadowResolution, 0, 100);
 	ImGui::SliderInt("lightBounces", &lightBounces, 0, 15);
-	ImGui::SliderFloat("light power", &pointLight.power, 0, 15000);
-	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 15000);
-	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -50, 50);
+	ImGui::SliderFloat("light power", &pointLight.power, 0, 250000);
+	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 250000);
+	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -1, 1);
+	ImGui::SliderFloat("light Height", &lightTranslate.y, 0, 400);
+
 	ImGui::SliderFloat3("light color", value_ptr(pointLight.color), 0, 1);
 	ImGui::Separator();
 	ImGui::SliderFloat3("Object albedo", value_ptr(planeMaterial.albedo), 0, 1);

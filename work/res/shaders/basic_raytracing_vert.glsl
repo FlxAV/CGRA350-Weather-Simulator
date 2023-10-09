@@ -56,12 +56,14 @@ float dWaveFunctiondz(vec3 position, vec2 direction, float waveLength, float wav
     return waveHeight * cos(u_time * waveSpeed + dot(position.xz, direction) * 2.0 * 3.14159 / waveLength) * distDerivativeZ;
 }
 
+
+
+
 ///////////////////
 
 void main() {
 	// transform vertex data to viewspace
 	vec3 pos = aPosition;
-	vec3 norm = aNormal;
 
     if (aBelowThreshold > 0.5) {
         vec2 st = aPosition.xz * 0.1;
@@ -76,8 +78,6 @@ void main() {
         vec3 tangentX = vec3(1.0, dWaveFunctiondx(pos, waveDirection, waveLength, waveSpeed, waveHeight), 0.0);
         vec3 tangentZ = vec3(0.0, dWaveFunctiondz(pos, waveDirection, waveLength, waveSpeed, waveHeight), 1.0);
         
-        // Compute the normal by crossing the two tangents
-        //norm = (uModelViewMatrix * vec4(aNormal, 0)).xyz;
 
          // Compute the normal by crossing the two tangents
         v_out.normal = normalize(cross(tangentZ, tangentX));
@@ -97,5 +97,5 @@ void main() {
 
 
 	// set the screenspace position (needed for converting to fragment data)
-	gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1);
+	gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(pos, 1);
 }

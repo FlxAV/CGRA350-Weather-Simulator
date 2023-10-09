@@ -70,7 +70,7 @@ void Terrain::createMesh() {
 
             vertices[i] = pointOnUnitCube;
             vertices[i].y += noiseMap[i];
-            normals[i] = computeNormal(noiseMap, x, y, resolution);
+            normals[i] =  computeNormal(noiseMap, x, y, resolution);
 
             // Compute UVs based on percent
             uvs[i] = percent;
