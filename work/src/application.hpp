@@ -155,6 +155,7 @@ public:
 	GLuint rayshader = 0;
 	GLuint boundShader;
 	Material planeMaterial;
+	Material waterMaterial;
 
 	// camera
 	float cameraYaw = 0.0f, cameraPitch = 0.0f;

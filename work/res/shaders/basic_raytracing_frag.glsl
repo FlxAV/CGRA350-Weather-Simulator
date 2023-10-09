@@ -38,6 +38,9 @@ in LightData{
 	vec3 position;
 }fl_in;
 
+
+in float threshold;
+
 // framebuffer output
 out vec4 fb_color;
 
@@ -70,7 +73,7 @@ struct Material {
 	float specularExponent;
 };
 uniform Material u_planeMaterial;
-
+uniform Material u_waterMaterial;
 struct SurfacePoint {
 	vec3 position;
 	vec3 normal;
@@ -85,24 +88,6 @@ float rand(vec2 co){
 }
 
 
-//vec3 terrainNormal(vec3 terrainPosition, float height, vec3 surfacePosition)
-//{
-    // Source: https://gist.github.com/Shtille/1f98c649abeeb7a18c5a56696546d3cf
-    // step(edge,x) : x < edge ? 0 : 1
-
-	//vec3 boxMin = cubePosition - size / 2.0;
-	//vec3 boxMax = cubePosition + size / 2.0;
-
-	//vec3 center = (boxMax + boxMin) * 0.5;
-	//vec3 boxSize = (boxMax - boxMin) * 0.5;
-	//vec3 pc = surfacePosition - center;
-	// step(edge,x) : x < edge ? 0 : 1
-	//vec3 normal = vec3(0.0);
-	//normal += vec3(sign(pc.x), 0.0, 0.0) * step(abs(abs(pc.x) - boxSize.x), EPSILON);
-	//normal += vec3(0.0, sign(pc.y), 0.0) * step(abs(abs(pc.y) - boxSize.y), EPSILON);
-	//normal += vec3(0.0, 0.0, sign(pc.z)) * step(abs(abs(pc.z) - boxSize.z), EPSILON);
-	//return normalize(normal);
-//}
 
 
 bool planeIntersection(Ray ray, out float hitDistance) 
@@ -121,6 +106,9 @@ bool planeIntersection(Ray ray, out float hitDistance)
 } 
 
 bool raycast(Ray ray, out SurfacePoint hitPoint) {
+	Material mat = u_planeMaterial;
+	if (threshold==1.0) mat.albedo = vec3(0,0.3,0.8);
+
 	bool didHit = false;
 	float minHitDist = RENDER_DISTANCE;
 
@@ -133,7 +121,7 @@ bool raycast(Ray ray, out SurfacePoint hitPoint) {
 			
 			hitPoint.position = ray.origin + ray.direction * minHitDist;
 			hitPoint.normal = f_in.normal;
-			hitPoint.material = u_planeMaterial;
+			hitPoint.material = mat;
 		}
 	}
 	else{
@@ -144,7 +132,7 @@ bool raycast(Ray ray, out SurfacePoint hitPoint) {
 			
 			hitPoint.position = ray.origin + ray.direction * minHitDist;
 			hitPoint.normal = f_in.normal;
-			hitPoint.material = u_planeMaterial;
+			hitPoint.material = mat;
 		}
 
 
@@ -154,6 +142,9 @@ bool raycast(Ray ray, out SurfacePoint hitPoint) {
 }
 
 bool shadowRaycast(Ray ray, out SurfacePoint hitPoint) {
+	Material mat = u_planeMaterial;
+	if (threshold==1.0) mat.albedo = vec3(0,0.3,0.8);
+
 	bool didHit = false;
 	float minHitDist = RENDER_DISTANCE;
 
@@ -166,7 +157,7 @@ bool shadowRaycast(Ray ray, out SurfacePoint hitPoint) {
 			
 			hitPoint.position = ray.origin + ray.direction * minHitDist;
 			hitPoint.normal = f_in.normal;
-			hitPoint.material = u_planeMaterial;
+			hitPoint.material = mat;
 		}
 	}
 	return didHit;
@@ -282,6 +273,8 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 			// Part one: Hit object's emission
 			totalIllumination += energy * hitPoint.material.emission * hitPoint.material.emissionStrength;
 
+			//if (threshold > 0.5) totalIllumination *= vec3(0,0,1);
+
 			// Part two: Direct light (received directly from light sources)
 			
 			PointLight light = u_light;
@@ -310,12 +303,13 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 				float alpha = pow(1000.0, smoothness*smoothness);
 				
 				if (smoothness == 1.0) {
-					rayDirection = reflect(rayDirection, hitPoint.normal);
+					//rayDirection = reflect(rayDirection, hitPoint.normal);
 				} else {
-					rayDirection = sampleHemisphere(reflect(rayDirection, hitPoint.normal), alpha, hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
+					//rayDirection = sampleHemisphere(reflect(rayDirection, hitPoint.normal), alpha, hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
 				}
-				rayOrigin = hitPoint.position + rayDirection * EPSILON;
-				float f = (alpha + 2) / (alpha + 1);
+
+				//rayOrigin = hitPoint.position + rayDirection * EPSILON;
+				//float f = (alpha + 2) / (alpha + 1);
 				//energy *= hitPoint.material.specular * clamp(dot(hitPoint.normal, rayDirection) * f, 0.0, 1.0);
 			}
 			else if (diffChance > 0 && roulette < specChance + diffChance)
@@ -324,14 +318,14 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 				rayOrigin = hitPoint.position + hitPoint.normal * EPSILON;
 				rayDirection = sampleHemisphere(hitPoint.normal, 1.0, hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
 
-				//energy *= hitPoint.material.albedo * clamp(dot(hitPoint.normal, rayDirection), 0.0, 1.0);
+				energy *= hitPoint.material.albedo * clamp(dot(hitPoint.normal, rayDirection), 0.0, 1.0);
 			} else {
 				// This means both the hit material's albedo and specular are totally black, so there won't be anymore light. We can stop here.
 				break;
 			}
 		} else {
 			// The ray didn't hit anything :(
-			//totalIllumination += energy;
+			totalIllumination += energy;
 			break;
 		}
 		
@@ -348,6 +342,7 @@ void main() {
 
 
 
+
 	///////////////////////////
 
 	vec3 eye = normalize(-u_cameraPosition);
@@ -358,6 +353,7 @@ void main() {
 	for (int i = 0; i<u_framePasses-1; i++) colorSum += computeSceneColor(cameraRay, u_time+i); 
 	
 	// get u_framepasses and u_time
+
 	fb_color = vec4(colorSum / u_framePasses, 1.0);
 
 	//if (u_accumulatedPasses > 0) {

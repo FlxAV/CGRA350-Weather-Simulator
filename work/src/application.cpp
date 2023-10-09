@@ -235,6 +235,7 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 
 	//m_rayplane.mesh = drawPlane().build();
 	planeMaterial = Material(vec3(0.4F, 0.4F, 0.4F), vec3(0.75F, 0.75F, 0.75F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
+	waterMaterial = Material(vec3(0.1F, 0.1F, 0.4F), vec3(0.25F, 0.25F, 0.75F), vec3(0.0F, 0.0F, 0.5F), 0.0F, 0.0F, 0.0F, 0.0F);
 	//m_rayplane.material = planeMaterial;
 	//placeBasicScene();
 	//recompileShader();
@@ -413,6 +414,15 @@ void Application::drawBasicScene(const glm::mat4 & view, const glm::mat4 proj, d
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.roughness"), planeMaterial.roughness);
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularHighlight"), planeMaterial.specularHighlight);
 	glUniform1f(glGetUniformLocation(rayshader, "u_planeMaterial.specularExponent"), planeMaterial.specularExponent);
+
+	// water material stuff
+	glUniform3fv(glGetUniformLocation(rayshader, "u_waterMaterial.albedo"), 1, value_ptr(waterMaterial.albedo));
+	glUniform3fv(glGetUniformLocation(rayshader, "u_waterMaterial.specular"), 1, value_ptr(waterMaterial.specular));
+	glUniform3fv(glGetUniformLocation(rayshader, "u_waterMaterial.emission"), 1, value_ptr(waterMaterial.emission));
+	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.emissionStrength"), waterMaterial.emissionStrength);
+	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.roughness"), waterMaterial.roughness);
+	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularHighlight"), waterMaterial.specularHighlight);
+	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularExponent"), waterMaterial.specularExponent);
 
 	// face buffer
 	//GLuint ssbo;

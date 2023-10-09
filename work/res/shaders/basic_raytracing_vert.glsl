@@ -33,6 +33,7 @@ out LightData{
 	vec3 position;
 }vl_out;
 
+out float threshold;
 
 ///////////////// Terrain Methods - KAHU
 
@@ -63,9 +64,10 @@ float dWaveFunctiondz(vec3 position, vec2 direction, float waveLength, float wav
 
 void main() {
 	// transform vertex data to viewspace
-	vec3 pos = aPosition;
-
+	vec3 pos = (uModelViewMatrix * vec4(aPosition, 1)).xyz;
+	
     if (aBelowThreshold > 0.5) {
+    	threshold = 1;
         vec2 st = aPosition.xz * 0.1;
         vec2 waveDirection = normalize(vec2(noise(st), noise(st + 10.0)));
         float waveLength = 0.1;
@@ -78,18 +80,22 @@ void main() {
         vec3 tangentX = vec3(1.0, dWaveFunctiondx(pos, waveDirection, waveLength, waveSpeed, waveHeight), 0.0);
         vec3 tangentZ = vec3(0.0, dWaveFunctiondz(pos, waveDirection, waveLength, waveSpeed, waveHeight), 1.0);
         
+        //tangentX = (uModelViewMatrix * vec4(tangentX, 0)).xyz;
+        //tangentZ = (uModelViewMatrix * vec4(tangentZ, 0)).xyz;
 
          // Compute the normal by crossing the two tangents
-        v_out.normal = normalize(cross(tangentZ, tangentX));
+        v_out.normal = normalize(uModelViewMatrix * vec4(aNormal, 0)).xyz;
+        v_out.normal *= normalize(cross(tangentZ, tangentX));
         
         // Transform the normal by the uModelViewMatrix
-        v_out.normal = (uModelViewMatrix * vec4(v_out.normal, 0)).xyz;
+       
     } else {
+    	threshold = 0;
         v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
     }
     
 	
-    v_out.position = (uModelViewMatrix * vec4(pos, 1)).xyz;
+    v_out.position = pos;
 	v_out.textureCoord = aTexCoord;
 
 	// light position 
@@ -97,5 +103,5 @@ void main() {
 
 
 	// set the screenspace position (needed for converting to fragment data)
-	gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(pos, 1);
+	gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1);
 }
