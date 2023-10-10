@@ -234,14 +234,14 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	//m_model.mesh = drawUVSphere().build();
 
 	//m_rayplane.mesh = drawPlane().build();
-	planeMaterial = Material(vec3(0.4F, 0.4F, 0.4F), vec3(0.75F, 0.75F, 0.75F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
+	planeMaterial = Material(vec3(0.6F, 0.2F, 0.2F), vec3(0.0F, 0.0F, 0.0F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
 	waterMaterial = Material(vec3(0.1F, 0.1F, 0.4F), vec3(0.25F, 0.25F, 0.75F), vec3(0.0F, 0.0F, 0.5F), 0.0F, 0.0F, 0.0F, 0.0F);
 	//m_rayplane.material = planeMaterial;
 	//placeBasicScene();
 	//recompileShader();
 
 	// Position , radius , color , power , reach
-	pointLight = PointLight(vec3(1.0, 5.0, 1.0), vec3(-1, -1, 0), 6, vec3(0.7), 15, 15);
+	pointLight = PointLight(vec3(1.0, 5.0, 1.0), vec3(-1, -1, 0), 6, vec3(0.7), 500, 500);
 	buildRayBasicShader();
 
 	glUseProgram(rayshader);
@@ -327,12 +327,12 @@ void Application::renderGUI() {
 	ImGui::Separator();
 
 	ImGui::SliderInt("framePasses", &framePasses, 0, 100);
-	ImGui::SliderInt("shadowResolution", &shadowResolution, 0, 100);
+	//ImGui::SliderInt("shadowResolution", &shadowResolution, 0, 100);
 	ImGui::SliderInt("lightBounces", &lightBounces, 0, 15);
-	ImGui::SliderFloat("light power", &pointLight.power, 0, 250000);
-	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 250000);
+	ImGui::SliderFloat("light power", &pointLight.power, 0, 5000);
+	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 5000);
 	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -1, 1);
-	ImGui::SliderFloat("light Height", &lightTranslate.y, 0, 400);
+	ImGui::SliderFloat("light Height", &lightTranslate.y, 0, 250);
 
 	ImGui::SliderFloat3("light color", value_ptr(pointLight.color), 0, 1);
 	ImGui::Separator();
@@ -341,8 +341,8 @@ void Application::renderGUI() {
 	ImGui::SliderFloat3("Object emission", value_ptr(planeMaterial.emission), 0, 1);
 	ImGui::SliderFloat("Object emissionStrength", &planeMaterial.emissionStrength, 0, 1);
 	ImGui::SliderFloat("Object roughness", &planeMaterial.roughness, 0, 1);
-	ImGui::SliderFloat("Object spec Highlight", &planeMaterial.specularHighlight, 0, 1);
-	ImGui::SliderFloat("Object spec EXPO", &planeMaterial.specularExponent, 0, 11);
+	//ImGui::SliderFloat("Object spec Highlight", &planeMaterial.specularHighlight, 0, 1);
+	//ImGui::SliderFloat("Object spec EXPO", &planeMaterial.specularExponent, 0, 11);
 	// helpful drawing options
 	ImGui::Checkbox("Show axis", &m_show_axis);
 	ImGui::SameLine();

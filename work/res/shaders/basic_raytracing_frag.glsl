@@ -107,7 +107,7 @@ bool planeIntersection(Ray ray, out float hitDistance)
 
 bool raycast(Ray ray, out SurfacePoint hitPoint) {
 	Material mat = u_planeMaterial;
-	if (threshold==1.0) mat.albedo = vec3(0,0.3,0.8);
+	if (threshold>0.5) mat.albedo = vec3(0,0.3,0.8);
 
 	bool didHit = false;
 	float minHitDist = RENDER_DISTANCE;
@@ -143,7 +143,7 @@ bool raycast(Ray ray, out SurfacePoint hitPoint) {
 
 bool shadowRaycast(Ray ray, out SurfacePoint hitPoint) {
 	Material mat = u_planeMaterial;
-	if (threshold==1.0) mat.albedo = vec3(0,0.3,0.8);
+	if (threshold>0.5) mat.albedo = vec3(0,0.3,0.8);
 
 	bool didHit = false;
 	float minHitDist = RENDER_DISTANCE;
@@ -196,6 +196,10 @@ vec3 sampleHemisphere(vec3 normal, float alpha, vec2 seed)
 // Adds up the total light received directly from all light sources
 vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed, PointLight light) {
 	
+
+
+	light.power *= 100; // extra volts !!
+
 	vec3 directIllumination = vec3(0);
 	float lightDistance = length(light.position - point.position);
 	

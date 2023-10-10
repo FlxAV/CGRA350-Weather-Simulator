@@ -139,7 +139,7 @@ private:
 	Terrain plane = Terrain(floorMesh, floorRes, bottom);
 
 	// Raytracing fields
-	glm::vec3 lightTranslate = glm::vec3(0,50,0);
+	glm::vec3 lightTranslate = glm::vec3(0,100,0);
 	bool refreshRequired = false;
 	int accumulatedPasses = 0;
 	glm::vec3 camPos;
