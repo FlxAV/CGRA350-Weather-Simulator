@@ -280,53 +280,10 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 			//if (threshold > 0.5) totalIllumination *= vec3(0,0,1);
 
 			// Part two: Direct light (received directly from light sources)
-			
+
 			PointLight light = u_light;
 			light.position = fl_in.position;
 			totalIllumination += energy * computeDirectIllumination(hitPoint, rayOrigin, seed, light);
-
-
-			// Part three: Indirect light (other objects)
-			float specChance = dot(hitPoint.material.specular, vec3(1.0/3.0));
-			float diffChance = dot(hitPoint.material.albedo, vec3(1.0/3.0));
-
-			float sum = specChance + diffChance;
-			specChance /= sum;
-			diffChance /= sum;
-
-
-			// Roulette-select the ray's path
-			float roulette = rand(hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
-
-			if (roulette < specChance)
-			{
-				// Specular reflection
-				
-				float smoothness = 1.0;//-hitPoint.material.roughness;
-				
-				float alpha = pow(1000.0, smoothness*smoothness);
-				
-				if (smoothness == 1.0) {
-					//rayDirection = reflect(rayDirection, hitPoint.normal);
-				} else {
-					//rayDirection = sampleHemisphere(reflect(rayDirection, hitPoint.normal), alpha, hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
-				}
-
-				//rayOrigin = hitPoint.position + rayDirection * EPSILON;
-				//float f = (alpha + 2) / (alpha + 1);
-				//energy *= hitPoint.material.specular * clamp(dot(hitPoint.normal, rayDirection) * f, 0.0, 1.0);
-			}
-			else if (diffChance > 0 && roulette < specChance + diffChance)
-			{
-				// Diffuse reflection
-				rayOrigin = hitPoint.position + hitPoint.normal * EPSILON;
-				rayDirection = sampleHemisphere(hitPoint.normal, 1.0, hitPoint.position.zx+vec2(hitPoint.position.y)+vec2(seed, depth));
-
-				energy *= hitPoint.material.albedo * clamp(dot(hitPoint.normal, rayDirection), 0.0, 1.0);
-			} else {
-				// This means both the hit material's albedo and specular are totally black, so there won't be anymore light. We can stop here.
-				break;
-			}
 		} else {
 			// The ray didn't hit anything :(
 			totalIllumination += energy;

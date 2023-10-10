@@ -292,13 +292,16 @@ vec3 computeDirectIllumination(SurfacePoint point, vec3 observerPos, float seed)
 	return directIllumination;
 }
 
+
 // Based on https://bitbucket.org/Daerst/gpu-ray-tracing-in-unity/src/Tutorial_Pt2/Assets/RayTracingShader.compute
 vec3 computeSceneColor(Ray cameraRay, float seed) {
+	
 	vec3 totalIllumination = vec3(0);
 	vec3 rayOrigin = cameraRay.origin;
 	vec3 rayDirection = cameraRay.direction;
 	vec3 energy = vec3(1.0);
 	for (int depth = 0; depth < u_lightBounces; depth++) {
+		
 		SurfacePoint hitPoint;
 		if (raycast(Ray(rayOrigin, rayDirection), hitPoint)) {
 			// Part one: Hit object's emission

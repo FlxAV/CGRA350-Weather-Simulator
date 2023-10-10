@@ -4,9 +4,16 @@
 #include <string>
 #include <chrono>
 
+#define GLM_ENABLE_EXPERIMENTAL
+
 // glm
 #include <glm/gtc/constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/spline.hpp>
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 // project
 #include "application.hpp"
@@ -25,7 +32,21 @@ using namespace glm;
 #define M_PI 3.1415926535897932384626433832795
 
 
-void basic_model::draw(const glm::mat4& view, const glm::mat4 proj) {
+void basic_model::CoordPts(const glm::mat4& view, const glm::mat4 proj) {
+	mat4 modelview = view * modelTransform;
+	modelview = glm::scale(modelview, vec3(0.1));
+
+	glUseProgram(shader); // load shader and variables
+	glUniformMatrix4fv(glGetUniformLocation(shader, "uProjectionMatrix"), 1, false, value_ptr(proj));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
+	glUniform3fv(glGetUniformLocation(shader, "uColor"), 1, value_ptr(color));
+
+	///Draw the 5 Sphere interpolation points
+	//drawSphere();
+}
+
+
+void basic_model::drawSplineLine(const glm::mat4& view, const glm::mat4 proj) {
 	mat4 modelview = view * modelTransform;
 
 	glUseProgram(shader); // load shader and variables
@@ -33,9 +54,30 @@ void basic_model::draw(const glm::mat4& view, const glm::mat4 proj) {
 	glUniformMatrix4fv(glGetUniformLocation(shader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
 	glUniform3fv(glGetUniformLocation(shader, "uColor"), 1, value_ptr(color));
 
+	mesh.mode = GL_LINES;
 	mesh.draw(); // draw
 }
 
+/// <----------------------------- >
+void basic_model::placePoints() {
+	mesh_builder spline;
+
+
+	for (int k = 0; k < interpolatedPts.size(); k++) {
+
+		spline.push_vertex(mesh_vertex{ interpolatedPts[k] });
+		//spline.push_vertex(mesh_vertex{catmullRom(splinePointsRaw[0+k],splinePointsRaw[1+k],splinePointsRaw[2+k],splinePointsRaw[3+k],i)});
+	}
+	for (int k = 0; k < interpolatedPts.size() - 1; k++) {
+
+		spline.push_index(k);
+		spline.push_index(k + 1);
+		//spline.push_vertex(mesh_vertex{catmullRom(splinePointsRaw[0+k],splinePointsRaw[1+k],splinePointsRaw[2+k],splinePointsRaw[3+k],i)});
+	}
+
+	mesh = spline.build();
+
+}
 
 
 mesh_builder Application::drawUVSphere() {
@@ -227,7 +269,15 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	////m_model.shader = shader;
 	////m_model.mesh = load_wavefront_data(CGRA_SRCDIR + std::string("/res//assets//teapot.obj")).build();
 	////m_model.color = vec3(1, 0, 0);
+	shader_builder cb;
+	cb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_vert_cloud.glsl"));
+	cb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_frag_cloud.glsl"));
+	GLuint cloudshader = cb.build();
 
+	shader_builder sb;
+	sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_vert.glsl"));
+	sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_frag.glsl"));
+	GLuint shader = sb.build();
 
 
 	//m_model.shader = shader;
@@ -244,8 +294,8 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	pointLight = PointLight(vec3(1.0, 5.0, 1.0), vec3(-1, -1, 0), 6, vec3(0.7), 500, 500);
 	buildRayBasicShader();
 
-	glUseProgram(rayshader);
-	glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
+	//glUseProgram(rayshader);
+	//glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 
 	//plane.shader = shader;
 	plane.resolution = 850;
@@ -254,11 +304,42 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	//plane.color = vec3(1);
 
 
+	clouds.shader = cloudshader;
+	clouds.resolution = 300;
+	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 100, 0)); // Move up by 2 units in the Y-direction
+	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
 
-	//glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
+	clouds.createMesh_v4(m_threshold, m_gradualFactor, m_amp, m_freq, m_nHeight);
+
+	clouds.color = vec3(1);
 
 
-	int charles = 5000000;
+	// camera stuff
+	//glBegin(GL_LINES);
+	m_spline.mesh.mode = GL_LINES;
+	m_cam_spline.shader = shader;
+	m_cam_spline.color = vec3(1, 1, 1);
+	m_cam_spline.mesh.mode = GL_LINES;
+
+	// points
+	plotPoints();
+
+
+	for (int i = 0; i < controlPts.size() - 3; i++) {
+		calculateSpline(controlPts[i], controlPts[i + 1], controlPts[i + 2], controlPts[i + 3],
+			interpolatedPoints, sliderPts);
+	}
+
+	for (int i = 0; i < camControlPts.size() - 3; i++) {
+		calculateSpline(camControlPts[i], camControlPts[i + 1], camControlPts[i + 2],
+			camControlPts[i + 3], camInterpolatedPoints, camSliderPts);
+	}
+
+	// calculate spline
+	m_spline.interpolatedPts = interpolatedPoints;
+	m_spline.shader = shader;
+	m_spline.placePoints();
+
 }
 
 
@@ -292,6 +373,13 @@ void Application::render() {
 
 	camPos = vec3(0, 0, 0);
 
+	if (camTrack) {
+		m_pitch = -0.03;
+		m_yaw = -0.08;
+		//view = translate(mat4(1), -camSliderPts[start]);
+		view = glm::lookAt(camSliderPts[camStart], sliderPts[start], vec3(0, 1, 0));
+	}
+
 
 	// helpful draw options
 	if (m_show_grid) drawGrid(view, proj);
@@ -307,6 +395,13 @@ void Application::render() {
 	//m_plane.draw(view, proj);
 	drawBasicScene(view, proj, preTime);
 
+	if (redraw) {
+		clouds.createMesh_v4(m_threshold, m_gradualFactor, m_amp, m_freq, m_nHeight);
+		redraw = false;  // Reset the flag
+	}
+
+
+	clouds.draw(view, proj);
 
 	//plane.draw(view, proj);
 }
@@ -354,7 +449,52 @@ void Application::renderGUI() {
 
 	ImGui::Separator();
 
+	ImGui::SliderFloat("Threshold", &m_threshold, 0, 100, "%.2f", 2.0f);
+	ImGui::SliderFloat("GradualFactor", &m_gradualFactor, 0, 80, "%.2f", 2.0f);
+	ImGui::SliderFloat("Amp", &m_amp, -10, 15, "%.2f", 2.0f);
+	ImGui::SliderFloat("Freq", &m_freq, -1, 1, "%.2f", 2.0f);
+	ImGui::SliderFloat("nHeight", &m_nHeight, -20, 20, "%.2f", 2.0f);
 
+	if (ImGui::Button("Redraw")) {
+		redraw = true;  // Set the flag to trigger a redraw
+	}
+
+	ImGui::Separator();
+
+	float animationSpeed = 1;
+
+	if (ImGui::SliderInt("Camera", &syncStart, 0, camSliderPts.size() - 101)) {
+		camStart = syncStart;
+		start = syncStart;
+	}
+	if (ImGui::Button("Camera Track")) {
+		int count = 0;
+		if (camTrack && count == 0) {
+			camTrack = false;
+			count++;
+		}
+		else if (camTrack == false && count == 0) {
+			camTrack = true;
+			count++;
+		}
+	}
+
+	// Update syncStart to simulate animation when in camTrack mode
+
+	if (camTrack == true) {
+		// Increment the slider value based on the animation speed
+		syncStart += animationSpeed;
+		start = syncStart;
+		camStart = syncStart;
+
+		// Ensure the slider value stays within the allowed range
+		if (syncStart > camSliderPts.size() - 101) {
+			//ImGui::SliderInt("Animate", &syncStart, 0, camSliderPts.size() - 101);
+			syncStart = 0;  // Reset to the beginning if it exceeds the maximum value
+		}
+	}
+
+	ImGui::Separator();
 
 	// example of how to use input boxes
 	static float exampleInput;
@@ -375,6 +515,16 @@ void Application::buildRayBasicShader() {
 	rayshader = rayshaderbuilder.build();
 
 }
+
+void Application::buildRayAdvancedShader() {
+
+	shader_builder rayshaderbuilder;
+	rayshaderbuilder.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//advanced_raytracing_vert.glsl"));
+	rayshaderbuilder.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//advanced_raytracing_frag.glsl"));
+	rayshader = rayshaderbuilder.build();
+
+}
+
 void Application::drawBasicScene(const glm::mat4 & view, const glm::mat4 proj, double time) {
 
 	// DRAW PLANE
@@ -505,4 +655,319 @@ void Application::keyCallback(int key, int scancode, int action, int mods) {
 
 void Application::charCallback(unsigned int c) {
 	(void)c; // currently un-used
+}
+
+
+// Camera stuff 
+
+/// <----------------------------- >
+
+
+void Application::calculateSpline(vec3& p0, vec3& p1, vec3& p2, vec3& p3, std::vector<glm::vec3>& intPoints, std::vector<glm::vec3>& sliderPoints) {
+	float tension = 0;
+	float alpha = 0.5;
+	float t0 = 0.0f;
+	float t1 = t0 + pow(distance(p0, p1), alpha);
+	float t2 = t1 + pow(distance(p1, p2), alpha);
+	float t3 = t2 + pow(distance(p2, p3), alpha);
+
+	vec3 m1 = (1.0f - tension) * (t2 - t1) *
+		((p1 - p0) / (t1 - t0) - (p2 - p0) / (t2 - t0) + (p2 - p1) / (t2 - t1));
+	vec3 m2 = (1.0f - tension) * (t2 - t1) *
+		((p2 - p1) / (t2 - t1) - (p3 - p1) / (t3 - t1) + (p3 - p2) / (t3 - t2));
+
+	splineSeg segment;
+	segment.a = 2.0f * (p1 - p2) + m1 + m2;
+	segment.b = -3.0f * (p1 - p2) - m1 - m1 - m2;
+	segment.c = m1;
+	segment.d = p1;
+
+	for (float t = 0; t < 1; t = t + 0.1) {
+		vec3 point = segment.a * t * t * t +
+			segment.b * t * t +
+			segment.c * t +
+			segment.d;
+
+		intPoints.push_back(point);
+	}
+
+	for (float t = 0; t < 1; t = t + 0.01) {
+		vec3 point = segment.a * t * t * t +
+			segment.b * t * t +
+			segment.c * t +
+			segment.d;
+
+		sliderPoints.push_back(point);
+	}
+}
+
+
+void Application::plotPoints() {
+	//<--------------------------------------- CAMERA ANIMATION AND SETTINGS--------------------------------------------------->
+
+	//CONTROL POINTS
+
+	//Start
+	controlPts.push_back(vec3(120, 4, 100));
+	controlPts.push_back(vec3(120, 4.5, 120));
+	controlPts.push_back(vec3(90, 4.7, 80));
+	controlPts.push_back(vec3(90, 4.3, 50));
+	controlPts.push_back(vec3(90, 4.2, 0));
+
+	controlPts.push_back(vec3(120, 4, -30));
+	controlPts.push_back(vec3(120, 4.5, -60));
+	controlPts.push_back(vec3(90, 4.7, -90));
+	controlPts.push_back(vec3(90, 4.3, -120));
+	controlPts.push_back(vec3(90, 4.2, -120));
+	///Curve
+	controlPts.push_back(vec3(70, 4, -120));
+	controlPts.push_back(vec3(50, 4.5, -120));
+	controlPts.push_back(vec3(30, 4.7, -120));
+	controlPts.push_back(vec3(10, 4.3, -120));
+	controlPts.push_back(vec3(10, 4.2, -120));
+
+	controlPts.push_back(vec3(10, 4.3, 0));
+	controlPts.push_back(vec3(10, 4.2, 0));
+
+	controlPts.push_back(vec3(0, 4.3, 100));
+	controlPts.push_back(vec3(0, 4.2, 110));
+
+	controlPts.push_back(vec3(-70, 5, 120));
+	controlPts.push_back(vec3(-70, 5.8, 120));
+
+	controlPts.push_back(vec3(-110, 5, 120));
+	controlPts.push_back(vec3(-110, 5.8, 120));
+	//5
+	controlPts.push_back(vec3(-110, 5, -120));
+	controlPts.push_back(vec3(-110, 5.8, -120));
+
+	controlPts.push_back(vec3(0, 5, -120));
+	controlPts.push_back(vec3(0, 5.8, -120));
+
+	controlPts.push_back(vec3(50, 5, -120));
+	controlPts.push_back(vec3(50, 5.8, -120));
+
+	controlPts.push_back(vec3(50, 5, -50));
+	controlPts.push_back(vec3(50, 5.4, -45));
+
+	controlPts.push_back(vec3(50, 5, 50));
+	controlPts.push_back(vec3(50, 5.4, 45));
+	//10
+	controlPts.push_back(vec3(10, 0, 50));
+	controlPts.push_back(vec3(-0, 0.4, 45));
+
+	controlPts.push_back(vec3(-40, -3, 50));
+	controlPts.push_back(vec3(-100, -3.4, 45));
+
+	controlPts.push_back(vec3(-110, -6, 50));
+	controlPts.push_back(vec3(-120, -6.4, 45));
+
+	controlPts.push_back(vec3(-130, -8, 150));
+	controlPts.push_back(vec3(-140, -8.4, 165));
+
+	controlPts.push_back(vec3(-144, -10.9, 168));
+	controlPts.push_back(vec3(-139, -10.4, 174));
+	//15
+	controlPts.push_back(vec3(-114, -5, 173));
+	controlPts.push_back(vec3(-90, -5.9, 171.4));
+
+	controlPts.push_back(vec3(-40, -2.7, 168));
+	controlPts.push_back(vec3(0, -2.4, 164));
+
+	controlPts.push_back(vec3(100, 0.7, 160));
+	controlPts.push_back(vec3(130, 0.4, 158));
+
+	controlPts.push_back(vec3(145, 1.7, 135));
+	controlPts.push_back(vec3(150, 1.4, 120));
+
+	controlPts.push_back(vec3(150, 3.7, 110));
+	controlPts.push_back(vec3(150, 3.4, 100));
+	//20
+	controlPts.push_back(vec3(150, 3.7, 0));
+	controlPts.push_back(vec3(150, 3.4, -60));
+
+	controlPts.push_back(vec3(150, 3.7, -120));
+	controlPts.push_back(vec3(150, 3.4, -140));
+
+	controlPts.push_back(vec3(135, 3.7, -140));
+	controlPts.push_back(vec3(120, 3.4, -140));
+
+	controlPts.push_back(vec3(0, 3.7, -140));
+	controlPts.push_back(vec3(-100, 3.4, -140));
+
+	controlPts.push_back(vec3(-140, 0.7, -140));
+	controlPts.push_back(vec3(-160, 0.4, -140));
+	//25
+	controlPts.push_back(vec3(-155, -1.7, -125));
+	controlPts.push_back(vec3(-150, -1.4, -110));
+
+	controlPts.push_back(vec3(-145, -2.5, -95));
+	controlPts.push_back(vec3(-140, -5.7, -80));
+
+	controlPts.push_back(vec3(-130, -10, -65));
+	controlPts.push_back(vec3(-120, -17, -50));
+
+	controlPts.push_back(vec3(0, -23, 0));
+	controlPts.push_back(vec3(10, -23.4, 80));
+
+	controlPts.push_back(vec3(20, -24.7, 100));
+	controlPts.push_back(vec3(50, -25.5, 130));
+	//30
+	controlPts.push_back(vec3(80, -24.7, 160));
+	controlPts.push_back(vec3(110, -25.5, 140));
+
+	controlPts.push_back(vec3(105, -21.7, 100));
+	controlPts.push_back(vec3(85, -21.5, 50));
+
+	controlPts.push_back(vec3(65, -19.7, 0));
+	controlPts.push_back(vec3(45, -18.5, -30));
+
+	controlPts.push_back(vec3(25, -17.7, -60));
+	controlPts.push_back(vec3(5, -16.5, -90));
+
+	controlPts.push_back(vec3(-15, -17.7, -100));
+	controlPts.push_back(vec3(-65, -16.5, -120));
+	//35
+	controlPts.push_back(vec3(-125, -17.7, -135));
+	controlPts.push_back(vec3(-205, -16.5, -150));
+
+
+
+
+
+	//<-------------------------------------------------------------------------------------------------------------------->
+
+		//CAM-CONTROL POINTS
+
+
+		//Start
+	camControlPts.push_back(vec3(100, 0.2, 40));
+	camControlPts.push_back(vec3(103, 0.5, 30));
+	camControlPts.push_back(vec3(106, 0.6, 20));
+	camControlPts.push_back(vec3(109, 0.77, 10));
+	camControlPts.push_back(vec3(112, 0.9, 0));
+
+	camControlPts.push_back(vec3(115, 1.4, -10));
+	camControlPts.push_back(vec3(118, 1.5, -20));
+	camControlPts.push_back(vec3(115, 1, -30));
+	camControlPts.push_back(vec3(112, 1.6, -40));
+	camControlPts.push_back(vec3(109, 1.5, -50));
+	//Curve
+	camControlPts.push_back(vec3(106, 2, -60));
+	camControlPts.push_back(vec3(103, 3.5, -70));
+	camControlPts.push_back(vec3(100, 4, -72));
+	camControlPts.push_back(vec3(99.8, 4.6, -69));
+	camControlPts.push_back(vec3(99.4, 5.5, -65));
+	//1st
+	camControlPts.push_back(vec3(98, 6.6, -64.5));
+	camControlPts.push_back(vec3(97.8, 6.5, -63.9));
+
+	camControlPts.push_back(vec3(98, 8.6, -63));
+	camControlPts.push_back(vec3(98.4, 8.5, -62.8));
+
+	camControlPts.push_back(vec3(99, 10.6, -62.35));
+	camControlPts.push_back(vec3(99.7, 10.5, -61.2));
+
+	camControlPts.push_back(vec3(100, 14.6, -60));
+	camControlPts.push_back(vec3(105, 14.5, -55));
+
+	camControlPts.push_back(vec3(110, 14.6, -50));
+	camControlPts.push_back(vec3(114.7, 14.5, -45));
+	//5
+	camControlPts.push_back(vec3(117.95, 14.6, -40));
+	camControlPts.push_back(vec3(121, 14.5, -35));
+
+	camControlPts.push_back(vec3(126.4, 14.6, -30));
+	camControlPts.push_back(vec3(130, 14.5, -25));
+
+	camControlPts.push_back(vec3(145, 14.6, -20));
+	camControlPts.push_back(vec3(155, 14.5, -15));
+
+	camControlPts.push_back(vec3(140, 7.6, -10));
+	camControlPts.push_back(vec3(125, 7.5, 0));
+
+	camControlPts.push_back(vec3(107, 3.6, 10));
+	camControlPts.push_back(vec3(90, 3.5, 20));
+	//10
+	camControlPts.push_back(vec3(65, 0.6, 20.6));
+	camControlPts.push_back(vec3(57, 0.5, 23.9));
+
+	camControlPts.push_back(vec3(44, -3.6, 26.4));
+	camControlPts.push_back(vec3(22, -3.5, 29));
+
+	camControlPts.push_back(vec3(0, -6.2, 33));
+	camControlPts.push_back(vec3(-1.5, -6.2, 38.5));
+
+	camControlPts.push_back(vec3(-3, -8.37, 43));
+	camControlPts.push_back(vec3(-3.3, -8.4, 48));
+	//15
+	camControlPts.push_back(vec3(-4.7, -10.9, 66));
+	camControlPts.push_back(vec3(-5.4, -10.97, 74));
+
+	camControlPts.push_back(vec3(-6, -5, 66));
+	camControlPts.push_back(vec3(-14, -5, 58));
+
+	camControlPts.push_back(vec3(-22, -3.6, 50));
+	camControlPts.push_back(vec3(-30, -3.67, 42));
+
+	camControlPts.push_back(vec3(-38, 0, 30));
+	camControlPts.push_back(vec3(-46, 0.5, 15));
+
+	camControlPts.push_back(vec3(-54, 5, -25));
+	camControlPts.push_back(vec3(-62, 4.5, -55));
+	//20
+	camControlPts.push_back(vec3(-70, 4.4, -59));
+	camControlPts.push_back(vec3(-81, 4.35, -57));
+
+	camControlPts.push_back(vec3(-84, 4.2, -53));
+	camControlPts.push_back(vec3(-87, 3.15, -47));
+
+	camControlPts.push_back(vec3(-89, 3.10, -43));
+	camControlPts.push_back(vec3(-90, 3, -40));
+
+	camControlPts.push_back(vec3(-93, 2.9, -39));
+	camControlPts.push_back(vec3(-97, 2.67, -37));
+
+	camControlPts.push_back(vec3(-100, 0.22, -33));
+	camControlPts.push_back(vec3(-103, 0.03, -30));
+	//25
+	camControlPts.push_back(vec3(-107, -1.22, -28));
+	camControlPts.push_back(vec3(-110, -1.03, -26));
+
+	camControlPts.push_back(vec3(-113, 2.1, -16));
+	camControlPts.push_back(vec3(-117, -5.5, -6));
+
+	camControlPts.push_back(vec3(-120, -10.5, 0));
+	camControlPts.push_back(vec3(-123, -17.5, 6));
+
+	camControlPts.push_back(vec3(-127, -20.3, 16));
+	camControlPts.push_back(vec3(-130, -20.1, 26));
+
+	camControlPts.push_back(vec3(-133, -20.7, 36));
+	camControlPts.push_back(vec3(-136, -20.5, 46));
+	//30
+	camControlPts.push_back(vec3(-137, -18.7, 56));
+	camControlPts.push_back(vec3(-138, -18.5, 66));
+
+	camControlPts.push_back(vec3(-139, -19.7, 76));
+	camControlPts.push_back(vec3(-140, -19.5, 86));
+
+	camControlPts.push_back(vec3(-141, -18.7, 96));
+	camControlPts.push_back(vec3(-142, -16.5, 106));
+
+	camControlPts.push_back(vec3(-143, -14.7, 116));
+	camControlPts.push_back(vec3(-144, -12.5, 125));
+
+	camControlPts.push_back(vec3(-145, -10.7, 135));
+	camControlPts.push_back(vec3(-146, -8.5, 145));
+	//35
+	camControlPts.push_back(vec3(-147, -6.7, 155));
+	camControlPts.push_back(vec3(-148, -4.5, 165));
+	//<------------------------------------------------------------>
+
+
+
+
+
+
 }
