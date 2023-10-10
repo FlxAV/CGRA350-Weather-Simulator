@@ -10,21 +10,34 @@
 #include "cgra/cgra_mesh.hpp"
 #include "skeleton_model.hpp"
 #include "Terrain.hpp"
+#include "cloudModel.hpp"
 
 // Basic model that holds the shader, mesh and transform for drawing.
 // Can be copied and modified for adding in extra information for drawing
 // including textures for texture mapping etc.
 
 //////////////////////// SCENE MODELS ////////////////////////
+struct splineSeg {
+	glm::vec3 a;
+	glm::vec3 b;
+	glm::vec3 c;
+	glm::vec3 d;
+};
 
 struct basic_model {
 	GLuint shader = 0;
 	cgra::gl_mesh mesh;
-	glm::vec3 color{0.3};
-	glm::mat4 modelTransform{1.0};
+	glm::vec3 color{ 0.7 };
+	glm::mat4 modelTransform{ 1.0 };
 	GLuint texture;
+	std::vector<glm::vec3> interpolatedPts;
 
-	void draw(const glm::mat4 &view, const glm::mat4 proj);
+	void Teapot(const glm::mat4& view, const glm::mat4 proj, const std::vector<glm::vec3>& sliderPts, const float& start);
+	void CoordPts(const glm::mat4& view, const glm::mat4 proj);
+	// void draw2(const glm::mat4 &view, const glm::mat4 proj);
+	void drawSplineLine(const glm::mat4& view, const glm::mat4 proj);
+
+	void placePoints();
 };
 
 struct Material {
@@ -138,6 +151,27 @@ private:
 	int floorRes = 1000;
 	Terrain plane = Terrain(floorMesh, floorRes, bottom);
 
+	// Clouds
+	glm::vec3 top = glm::vec3(0, -1, 0);
+	mesh_builder skymesh;
+	int skyres = 1000;
+	CloudModel clouds = CloudModel(skymesh, skyres, top);
+	float m_threshold = 50.0;
+	float m_gradualFactor = 40.0;
+
+	float threshold_check = 0.0;
+	float gradual_check = 0.0;
+
+	float m_amp = 9.0;
+	float m_freq = 0.06;
+	float m_nHeight = -3.0;
+
+	float amp_check = 0.0;
+	float freq_check = 0.0;
+	float nHeight_check = 0.0;
+
+	bool redraw = false;
+
 	// Raytracing fields
 	glm::vec3 lightTranslate = glm::vec3(0,100,0);
 	bool refreshRequired = false;
@@ -146,6 +180,16 @@ private:
 	int shadowResolution = 20;
 	int lightBounces = 5;
 	int framePasses = 10;
+
+	// Camera fields
+	basic_model m_spline;       ///Teapot Spline
+	basic_model m_cam_spline;   ///Camera Spline
+	std::vector<glm::vec3> controlPts;
+	std::vector<glm::vec3> interpolatedPoints;
+	std::vector<glm::vec3> camControlPts;
+	std::vector<glm::vec3> camInterpolatedPoints;
+	std::vector<glm::vec3> sliderPts;
+	std::vector<glm::vec3> camSliderPts;
 
 public:
 	// setup
@@ -174,7 +218,7 @@ public:
 	cgra::mesh_builder drawPlane();
 
 	// methods for the raytracing section
-	void buildRayShader();
+	void buildRayAdvancedShader();
 	void buildRayBasicShader();
 	void drawBasicScene(const glm::mat4& view, const glm::mat4 proj, double time);
 	
@@ -182,10 +226,23 @@ public:
 	void render();
 	void renderGUI();
 
+
 	// input callbacks
 	void cursorPosCallback(double xpos, double ypos);
 	void mouseButtonCallback(int button, int action, int mods);
 	void scrollCallback(double xoffset, double yoffset);
 	void keyCallback(int key, int scancode, int action, int mods);
 	void charCallback(unsigned int c);
+
+
+	// Camera methods
+	void calculateSpline(glm::vec3& p0, glm::vec3& p1, glm::vec3& p2, glm::vec3& p3, std::vector<glm::vec3>& intPoints, std::vector<glm::vec3>& sliderPoints);
+	void animateTeapot();
+	void plotPoints();
+	int start = 0;
+	int camStart = 0;
+	int syncStart = 0;
+	bool animate = false;
+	bool camTrack = false;
+
 };

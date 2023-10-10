@@ -15,7 +15,10 @@ SET(sources
 	"skeleton_model.hpp"
 	"skeleton_model.cpp"
 	"Terrain.hpp"
+	"CloudModel.cpp"
+	"CloudModel.hpp"
 	"Terrain.cpp"
+
 	"Noise.hpp"
 	"Noise.cpp"
 
