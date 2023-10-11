@@ -11,6 +11,7 @@ public:
 	Terrain(mesh_builder meshb, int resolution, glm::vec3 localUp);
 	void createMesh();
 	void perlinMap();
+	void draw();
 	void NoiseMap(int resolution, float scale, int octaves, float persistance, float lacunarity, float seed);
 	
 	void draw(const glm::mat4& view, const glm::mat4 proj);

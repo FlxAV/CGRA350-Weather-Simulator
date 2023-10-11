@@ -306,15 +306,15 @@ Application::Application(GLFWwindow* window) : m_window(window) {
 
 	//plane.shader = shader;
 	plane.resolution = 1000;
-	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(500, 2.5, 500));
+	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(250, 1, 250));
 	plane.createMesh();
 	//plane.color = vec3(1);
 
 
 	clouds.shader = cloudshader;
-	clouds.resolution = 1000;
+	clouds.resolution = 500;
 	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 55, 0)); // Move up by 2 units in the Y-direction
-	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(1000, 1, 1000));
+	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
 
 	clouds.createMesh_v4(m_threshold, m_gradualFactor, m_amp, m_freq, m_nHeight);
 
@@ -441,7 +441,26 @@ void Application::render() {
 
 
 	drawSkybox(view, proj);
-	clouds.draw(view, proj);
+	int cloudReplicationCount = 3; // for example, 3 would produce 7x7 grid centered on the original
+
+	// Define the distance between each replicated cloud chunk
+	vec3 cloudOffset(2, 0, 2); // adjust based on your cloud's size
+
+	for (int i = -cloudReplicationCount; i <= cloudReplicationCount; i++) {
+		for (int j = -cloudReplicationCount; j <= cloudReplicationCount; j++) {
+			// Backup original transformation
+			mat4 originalTransform = clouds.modelTransform;
+
+			// Translate the cloud's model transformation for this iteration
+			clouds.modelTransform = glm::translate(originalTransform, vec3(cloudOffset.x * i, 0, cloudOffset.z * j));
+
+			// Draw the cloud at the new location
+			clouds.draw(view, proj);
+
+			// Restore the original transformation for the next iteration
+			clouds.modelTransform = originalTransform;
+		}
+	}
 	//plane.draw(view, proj);
 }
 
@@ -625,7 +644,21 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 	//glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::vec3) * plane.vertices.size(), &plane.vertices[0], GL_STATIC_DRAW);
 	//glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // Unbind
 
-	plane.mesh.draw(); // draw
+	int range = 2; // This will draw one plane to the left, right, above, and below the original.
+	float offset = 1.99; // Assuming 200 is the size of your plane.
+
+	for (int x = -range; x <= range; x++) {
+		for (int z = -range; z <= range; z++) {
+			mat4 tileTransform = glm::translate(glm::mat4(1.0f), glm::vec3(x * offset, 0, z * offset));
+			mat4 modelview = view * plane.modelTransform * tileTransform; // Adjust the modelview for the tile
+
+			// Set the modified modelview
+			glUniformMatrix4fv(glGetUniformLocation(rayshader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
+
+			plane.draw(); // draw each tile
+		}
+	}
+
 	// do the same thing for UVs but bind it to location=2 - the data is treated in lots of 2 (2 floats = vec2)
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), value_ptr(pointLight.position));
@@ -639,6 +672,8 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 
 	//plane.mesh.draw(); // draw
 }
+
+
 
 
 

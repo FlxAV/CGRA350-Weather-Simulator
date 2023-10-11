@@ -103,13 +103,22 @@ void Terrain::perlinMap() {
     // Create a Perlin noise map
     noiseMap = std::vector<float>(resolution * resolution);
     belowThreshold = std::vector<float>(resolution * resolution);
-
+    float blendFactor = 0.3f;
     for (int y = 0; y < resolution; y++) {
         for (int x = 0; x < resolution; x++) {
             int i = x + y * resolution;
             float amplitude = 10;
             float frequency = 0.005;
             float noiseHeight = 0;
+			
+            // Calculate the distance from the center
+            float distFromCenter = glm::length(vec2(x - resolution * 0.5f, y - resolution * 0.5f)) / (resolution * 0.5f);
+            // Clamp the distance value between 0 and 1
+            distFromCenter = glm::clamp(distFromCenter, 0.0f, 1.0f);
+
+            // Create a falloff factor based on the distance
+            float falloff = 1.0f - glm::pow(distFromCenter, 2.0f);
+
 
             for (int o = 0; o < 6; o++) {
                 float sampleX = x * frequency;
@@ -119,6 +128,7 @@ void Terrain::perlinMap() {
                 amplitude *= 0.5f;
                 frequency *= 2.0f;
             }
+            noiseHeight = noiseHeight * (1.0f - blendFactor) + noiseHeight / falloff * blendFactor;
 
             if (noiseHeight < -25) {
                 noiseHeight = -25;
@@ -129,16 +139,10 @@ void Terrain::perlinMap() {
         }
     }
 }
-
-void Terrain::draw(const glm::mat4& view, const glm::mat4 proj) {
-    mat4 modelview = view * modelTransform;
-    glUseProgram(shader);
-    glUniformMatrix4fv(glGetUniformLocation(shader, "uProjectionMatrix"), 1, false, value_ptr(proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
-    glUniform3fv(glGetUniformLocation(shader, "uColor"), 1, value_ptr(color));
-
-    float currentTime = std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::steady_clock::now().time_since_epoch()).count();
-    glUniform1f(glGetUniformLocation(shader, "uTime"), currentTime);
-
+void Terrain::draw() {
     mesh.draw();
-}
+
+
+    }
+
+
