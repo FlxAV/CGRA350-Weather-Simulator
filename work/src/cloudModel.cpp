@@ -41,7 +41,6 @@ CloudModel::CloudModel(mesh_builder meshb, int resolution, glm::vec3 localUp) { 
 
 }
 
-
 vec3 computeNormalCloud(const std::vector<float>& noiseMap, int x, int y, int resolution) {
     // Edge cases
     float hL = x > 0 ? noiseMap[(x - 1) + y * resolution] : noiseMap[x + y * resolution];
@@ -70,7 +69,6 @@ void CloudModel::createMesh_v4(float threshold, float gradualFactor, float amp, 
 
     perlinMap_v3(amp, freq, nHeight);
 
-
     for (int y = 0; y < resolution; y++) {
         for (int x = 0; x < resolution; x++) {
             int i = x + y * resolution;
@@ -81,16 +79,9 @@ void CloudModel::createMesh_v4(float threshold, float gradualFactor, float amp, 
             vec3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB;
 
             vertices[i] = pointOnUnitCube;
-
-            // Compute the normal by taking the cross product of the axisA and axisB vectors
-            // and use it as the normal for each vertex
-            //normals[i] = normalize(cross(axisA, axisB));
           
             // Compute the normal using the updated computeNormal function
             normals[i] = computeNormalCloud(noiseMap, x, y, resolution);
-
-
-
 
             // Compute UVs based on percent
             uvs[i] = percent;
@@ -109,11 +100,7 @@ void CloudModel::createMesh_v4(float threshold, float gradualFactor, float amp, 
     }
     meshb.clear();
 
-
-    //float threshold = -10.0;
-
     float maxHeight = -20;
-    //float gradualFactor = 10;
 
     // Adjust the Y value based on noiseMap and threshold
     for (int i = 0; i < vertices.size(); i++) {

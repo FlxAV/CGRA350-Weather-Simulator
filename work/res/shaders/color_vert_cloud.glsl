@@ -25,7 +25,7 @@ void main() {
     // Apply threshold to vertices in object space (local coordinates)
     float threshold = -1.0; // Adjust the threshold value as needed
     vec3 pos = aPosition;
-    pos.x += sin(uTime*0.008) * 0.1 ;
+    pos.x += sin(uTime*0.1) * 0.1 ;
 
 
 

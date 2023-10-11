@@ -157,8 +157,6 @@ private:
 	int skyres = 1000;
 	CloudModel clouds = CloudModel(skymesh, skyres, top);
 
-	CloudModel cloudsTop = CloudModel(skymesh, skyres, top);
-
 	float m_threshold = 83;
 	float m_gradualFactor = 80;
 

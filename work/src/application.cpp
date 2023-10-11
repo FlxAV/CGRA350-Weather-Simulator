@@ -305,14 +305,15 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 
 
 	clouds.shader = cloudshader;
-	clouds.resolution = 800;
+	clouds.resolution = 1500;
 	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 55, 0)); // Move up by 2 units in the Y-direction
 	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(1000, 1, 1000));
-
 	clouds.createMesh_v4(m_threshold, m_gradualFactor, m_amp, m_freq, m_nHeight);
-
 	clouds.color = vec3(1);
 
+
+
+	
 
 	// camera stuff
 	//glBegin(GL_LINES);
