@@ -4,6 +4,9 @@
 uniform mat4 uProjectionMatrix;
 uniform mat4 uModelViewMatrix;
 uniform vec3 uColor;
+uniform float u_Brightness;
+
+uniform float uTransparency;
 
 // Fog Constants and Uniforms
 #define FOG_START 0
@@ -45,11 +48,11 @@ void main() {
         float normalizedDistance = (distanceToCamera - FOG_START) / (FOG_END - FOG_START);
         float fogFactor = normalizedDistance * FOG_STRENGTH;
 
-        color = mix(color, FOG_COLOR, fogFactor);
+        color = mix(color, FOG_COLOR * u_Brightness, fogFactor);
     } else if (distanceToCamera >= FOG_END) {
-        color = FOG_COLOR;
+        color = FOG_COLOR ;
     }
 
     // Output to the framebuffer
-    fb_color = vec4(color, 1);
+    fb_color = vec4(color * u_Brightness , uTransparency);
 }

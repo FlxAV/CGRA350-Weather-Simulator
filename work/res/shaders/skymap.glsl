@@ -2,6 +2,7 @@
 
 uniform mat4 uProjectionMatrix;
 uniform mat4 uModelViewMatrix;
+uniform float u_Brightness;
 
 uniform float uZDistance;
 
@@ -87,7 +88,7 @@ vec2 latlong(vec3 v) {
 }
 
 void main() {
-    f_color = texture(uSkyMap, latlong(v_world_space)).rgb;
+    f_color = texture(uSkyMap, latlong(v_world_space)).rgb * u_Brightness;
 }
 
 

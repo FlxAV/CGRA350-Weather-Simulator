@@ -152,6 +152,8 @@ private:
 	Terrain plane = Terrain(floorMesh, floorRes, bottom);
 
 	// Clouds
+	float uLateralShift = 0.0;
+	float uTransparency = 0.5;
 	glm::vec3 top = glm::vec3(0, -1, 0);
 	mesh_builder skymesh;
 	int skyres = 1000;
@@ -183,8 +185,10 @@ private:
 	float skyboxStrength = 1.0F;
 	float skyboxGamma = 2.2F;
 	float skyboxCeiling = 10.0F;
+	
 
-	// Skybox
+	float brightness = 1.0;
+
 	GLuint skyboxTexture;
 	GLuint m_skymap_shader;
 
