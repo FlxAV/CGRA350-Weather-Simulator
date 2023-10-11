@@ -185,7 +185,7 @@ private:
 	float skyboxStrength = 1.0F;
 	float skyboxGamma = 2.2F;
 	float skyboxCeiling = 10.0F;
-	
+	gl_mesh mergedMesh;
 
 	float brightness = 1.0;
 

@@ -15,7 +15,7 @@ public:
 	void NoiseMap(int resolution, float scale, int octaves, float persistance, float lacunarity, float seed);
 	
 	void draw(const glm::mat4& view, const glm::mat4 proj);
-
+	gl_mesh meshCopy(const std::vector<Terrain>& terrains);
 
 	GLuint normalMapTextureID = 0;
 	mesh_builder meshb;
@@ -31,6 +31,6 @@ public:
 	std::vector<float> noiseMap;
 	std::vector<float> belowThreshold;
 
-
+	int worldX, worldY;
 	std::vector<vec3> vertices;
 };
