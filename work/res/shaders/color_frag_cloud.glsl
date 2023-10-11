@@ -5,6 +5,12 @@ uniform mat4 uProjectionMatrix;
 uniform mat4 uModelViewMatrix;
 uniform vec3 uColor;
 
+// Fog Constants and Uniforms
+#define FOG_START 0
+#define FOG_END 500
+#define FOG_STRENGTH 1
+#define FOG_COLOR vec3(0.7, 0.7, 0.9)
+
 // viewspace data (this must match the output of the fragment shader)
 in VertexData {
 	vec3 position;
@@ -31,6 +37,19 @@ void main() {
 		discard;
 	}
 
-	// output to the framebuffer
-	fb_color = vec4(color, 0.5);
+ // Calculate the distance to the camera for the fog effect
+    float distanceToCamera = length(f_in.position - eye);
+
+    // Fog calculation
+    if (distanceToCamera > FOG_START && distanceToCamera < FOG_END) {
+        float normalizedDistance = (distanceToCamera - FOG_START) / (FOG_END - FOG_START);
+        float fogFactor = normalizedDistance * FOG_STRENGTH;
+
+        color = mix(color, FOG_COLOR, fogFactor);
+    } else if (distanceToCamera >= FOG_END) {
+        color = FOG_COLOR;
+    }
+
+    // Output to the framebuffer
+    fb_color = vec4(color, 1);
 }
