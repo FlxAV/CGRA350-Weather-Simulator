@@ -292,7 +292,7 @@ Application::Application(GLFWwindow* window) : m_window(window) {
 
 	//m_rayplane.mesh = drawPlane().build();
 	planeMaterial = Material(vec3(0.6F, 0.2F, 0.2F), vec3(0.0F, 0.0F, 0.0F), vec3(0.0F, 0.0F, 0.0F), 0.0F, 0.0F, 0.0F, 0.0F);
-	waterMaterial = Material(vec3(0.1F, 0.1F, 0.4F), vec3(0.25F, 0.25F, 0.75F), vec3(0.0F, 0.0F, 0.5F), 0.0F, 0.0F, 0.0F, 0.0F);
+	waterMaterial = Material(vec3(0.0, 0.3F, 0.8F), vec3(0, 0, 0), vec3(0.0F, 0.0F, 0.5F), 0.0F, 0.0F, 0.0F, 0.0F);
 	//m_rayplane.material = planeMaterial;
 	//placeBasicScene();
 	//recompileShader();
@@ -306,7 +306,7 @@ Application::Application(GLFWwindow* window) : m_window(window) {
 
 	//plane.shader = shader;
 	plane.resolution = 1000;
-	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(250, 1, 250));
+	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(250, 1, 300));
 	plane.createMesh();
 	//plane.color = vec3(1);
 
@@ -421,6 +421,12 @@ void Application::render() {
 		m_yaw = -0.08;
 		//view = translate(mat4(1), -camSliderPts[start]);
 		view = glm::lookAt(camSliderPts[camStart], sliderPts[start], vec3(0, 1, 0));
+		if (brightness < 1) {
+			brightness += 0.000666;
+		}
+		if (pointLight.power < 500.0f) {
+			pointLight.power += 0.3333;
+		}
 	}
 
 
@@ -550,6 +556,7 @@ void Application::renderGUI() {
 		start = syncStart;
 	}
 	if (ImGui::Button("Camera Track")) {
+
 		int count = 0;
 		if (camTrack && count == 0) {
 			camTrack = false;
@@ -558,6 +565,15 @@ void Application::renderGUI() {
 		else if (camTrack == false && count == 0) {
 			camTrack = true;
 			count++;
+		}
+		
+		if (camTrack) {
+			brightness = 0;
+			pointLight.power = 0.0f;
+		}
+		else {
+			brightness = 1;
+			pointLight.power = 500.0f;
 		}
 	}
 
@@ -655,7 +671,7 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.roughness"), waterMaterial.roughness);
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularHighlight"), waterMaterial.specularHighlight);
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularExponent"), waterMaterial.specularExponent);
-
+	glUniform3fv(glGetUniformLocation(rayshader, "u_lightTranslation"), 1, value_ptr(lightTranslate));
 
 	// Skybox
 	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxStrength"), skyboxStrength);
@@ -683,7 +699,7 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 
 			// Set the modified modelview
 			glUniformMatrix4fv(glGetUniformLocation(rayshader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
-			glUniform3fv(glGetUniformLocation(rayshader, "u_lightTranslation"), 1, value_ptr(lightTranslate + (x * offset, 1, z * offset)));
+			
 
 			plane.draw(); // draw each tile
 		}

@@ -119,7 +119,7 @@ bool planeIntersection(Ray ray, out float hitDistance)
 
 bool raycast(Ray ray, out SurfacePoint hitPoint) {
 	Material mat = u_planeMaterial;
-	if (threshold>0.5) mat.albedo = vec3(0,0.3,0.8);
+	if (threshold>0.5) mat = u_waterMaterial;
 
 	bool didHit = false;
 	float minHitDist = RENDER_DISTANCE;
@@ -155,7 +155,7 @@ bool raycast(Ray ray, out SurfacePoint hitPoint) {
 
 bool shadowRaycast(Ray ray, out SurfacePoint hitPoint) {
 	Material mat = u_planeMaterial;
-	if (threshold>0.5) mat.albedo = vec3(0,0.3,0.8);
+	if (threshold>0.5) mat = u_waterMaterial;
 
 	bool didHit = false;
 	float minHitDist = RENDER_DISTANCE;
