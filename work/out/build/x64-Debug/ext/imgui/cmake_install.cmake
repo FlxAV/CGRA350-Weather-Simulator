@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/ext/imgui
+# Install script for directory: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/imgui
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

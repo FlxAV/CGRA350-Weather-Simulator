@@ -79,7 +79,7 @@ struct Object {
 	glm::vec3 scale; // For spheres, only the x value will be used as the radius
 	Material material;
 	Object();
-	Object(int ntype, const glm::vec3& nposition, const glm::vec3& nscale, Material & nmaterial);
+	Object(int ntype, const glm::vec3& nposition, const glm::vec3& nscale, Material& nmaterial);
 
 };
 
@@ -116,7 +116,7 @@ class Application {
 private:
 	// window
 	glm::vec2 m_windowsize;
-	GLFWwindow *m_window;
+	GLFWwindow* m_window;
 
 	// oribital camera
 	float m_pitch = .86;
@@ -162,8 +162,8 @@ private:
 	float threshold_check = 0.0;
 	float gradual_check = 0.0;
 
-	float m_amp = 9.0;
-	float m_freq = 0.06;
+	float m_amp = 6.3;
+	float m_freq = 0.01;
 	float m_nHeight = -3.0;
 
 	float amp_check = 0.0;
@@ -173,13 +173,21 @@ private:
 	bool redraw = false;
 
 	// Raytracing fields
-	glm::vec3 lightTranslate = glm::vec3(0,100,0);
+	glm::vec3 lightTranslate = glm::vec3(0, 100, 0);
 	bool refreshRequired = false;
 	int accumulatedPasses = 0;
 	glm::vec3 camPos;
 	int shadowResolution = 20;
 	int lightBounces = 5;
 	int framePasses = 10;
+	float skyboxStrength = 1.0F;
+	float skyboxGamma = 2.2F;
+	float skyboxCeiling = 10.0F;
+
+	// Skybox
+	GLuint skyboxTexture;
+	GLuint m_skymap_shader;
+
 
 	// Camera fields
 	basic_model m_spline;       ///Teapot Spline
@@ -193,7 +201,7 @@ private:
 
 public:
 	// setup
-	Application(GLFWwindow *);
+	Application(GLFWwindow*);
 
 	// ray - shader cache
 	GLuint rayshader = 0;
@@ -221,7 +229,9 @@ public:
 	void buildRayAdvancedShader();
 	void buildRayBasicShader();
 	void drawBasicScene(const glm::mat4& view, const glm::mat4 proj, double time);
-	
+	void drawSkybox(const glm::mat4& view, const glm::mat4 proj);
+
+
 	// rendering callbacks (every frame)
 	void render();
 	void renderGUI();

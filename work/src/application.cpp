@@ -222,7 +222,7 @@ mesh_builder Application::drawPlane() {
 
 //////////////////////// SCENE MODELS ////////////////////////
 Object::Object() = default;
-Object::Object(int ntype, const glm::vec3 & nposition, const glm::vec3 & nscale, Material & nmaterial) {
+Object::Object(int ntype, const glm::vec3& nposition, const glm::vec3& nscale, Material& nmaterial) {
 	type = ntype;
 	position = nposition;
 	scale = nscale;
@@ -235,7 +235,7 @@ Object::Object(int ntype, const glm::vec3 & nposition, const glm::vec3 & nscale,
 
 // Material
 Material::Material() = default;
-Material::Material(const glm::vec3 & nalbedo, const glm::vec3 & nspecular, const glm::vec3 & nemission, float emissionStrength, float roughness, float specularHighlight, float specularExponent) {
+Material::Material(const glm::vec3& nalbedo, const glm::vec3& nspecular, const glm::vec3& nemission, float emissionStrength, float roughness, float specularHighlight, float specularExponent) {
 	albedo = nalbedo;
 	specular = nspecular;
 	emission = nemission;
@@ -246,7 +246,7 @@ Material::Material(const glm::vec3 & nalbedo, const glm::vec3 & nspecular, const
 }
 //////////////////////// LIGHTING MODELS ////////////////////////
 PointLight::PointLight() = default;
-PointLight::PointLight(const glm::vec3 & nposition, const glm::vec3 & ndirection, float nradius, const glm::vec3 & ncolor, float power, float reach) {
+PointLight::PointLight(const glm::vec3& nposition, const glm::vec3& ndirection, float nradius, const glm::vec3& ncolor, float power, float reach) {
 	position = nposition;
 	direction = ndirection;
 	this->radius = nradius;
@@ -259,7 +259,7 @@ PointLight::PointLight(const glm::vec3 & nposition, const glm::vec3 & ndirection
 
 //////////////////////// Main application class ////////////////////////
 
-Application::Application(GLFWwindow * window) : m_window(window) {
+Application::Application(GLFWwindow* window) : m_window(window) {
 
 	//shader_builder sb;
 	//sb.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + std::string("//res//shaders//terrain_vert.glsl"));
@@ -279,6 +279,13 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	sb.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + std::string("//res//shaders//color_frag.glsl"));
 	GLuint shader = sb.build();
 
+	// load skymap shader
+	cgra::shader_builder skymap_sp;
+	skymap_sp.set_shader(GL_VERTEX_SHADER, CGRA_SRCDIR + string("//res/shaders//skymap.glsl"));
+	skymap_sp.set_shader(GL_GEOMETRY_SHADER, CGRA_SRCDIR + string("//res/shaders//skymap.glsl"));
+	skymap_sp.set_shader(GL_FRAGMENT_SHADER, CGRA_SRCDIR + string("//res/shaders//skymap.glsl"));
+	m_skymap_shader = skymap_sp.build();
+	skyboxTexture = rgba_image((CGRA_SRCDIR + std::string("//res//skyboxes//industrial_sunset_02_puresky_1k.hdr"))).uploadTexture();
 
 	//m_model.shader = shader;
 	//m_model.mesh = drawUVSphere().build();
@@ -294,20 +301,20 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	pointLight = PointLight(vec3(1.0, 5.0, 1.0), vec3(-1, -1, 0), 6, vec3(0.7), 500, 500);
 	buildRayBasicShader();
 
-	//glUseProgram(rayshader);
+	glUseProgram(rayshader);
 	//glUniform1i(glGetUniformLocation(rayshader, "u_screenTexture"), 0);
 
 	//plane.shader = shader;
-	plane.resolution = 850;
-	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
+	plane.resolution = 1000;
+	plane.modelTransform = glm::scale(glm::mat4(1), glm::vec3(500, 2.5, 500));
 	plane.createMesh();
 	//plane.color = vec3(1);
 
 
 	clouds.shader = cloudshader;
-	clouds.resolution = 300;
-	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 100, 0)); // Move up by 2 units in the Y-direction
-	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
+	clouds.resolution = 1000;
+	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 55, 0)); // Move up by 2 units in the Y-direction
+	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(1000, 1, 1000));
 
 	clouds.createMesh_v4(m_threshold, m_gradualFactor, m_amp, m_freq, m_nHeight);
 
@@ -340,8 +347,40 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 	m_spline.shader = shader;
 	m_spline.placePoints();
 
+
+	//// skybox stuff
+	//std::cout << "Loading skybox" << std::endl;
+	//glUniform1i(glGetUniformLocation(rayshader, "u_skyboxTexture"), 0);
+	//int sbWidth, sbHeight, sbChannels;
+	//const std::string filename = CGRA_SRCDIR + std::string("//res//skyboxes/kiara_9_dusk_2k.hdr");
+	//float* skyboxData = stbi_loadf(filename.c_str(), &sbWidth, &sbHeight, &sbChannels, 0);
+	//
+	//std::cout << skyboxData << std::endl;
+
+	//glGenTextures(1, &skyboxTexture);
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, skyboxTexture);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, sbWidth, sbHeight, 0, GL_RGB, GL_FLOAT, skyboxData);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	//stbi_image_free(skyboxData);
+	//glUniform1i(glGetUniformLocation(rayshader, "u_skyboxTexture"), 0);
+
 }
 
+
+void Application::drawSkybox(const glm::mat4& view, const glm::mat4 proj) {
+	glUseProgram(m_skymap_shader);
+	glUniformMatrix4fv(glGetUniformLocation(m_skymap_shader, "uProjectionMatrix"), 1, false, value_ptr(proj));
+	glUniformMatrix4fv(glGetUniformLocation(m_skymap_shader, "uModelViewMatrix"), 1, false, value_ptr(view));
+	glUniform1f(glGetUniformLocation(m_skymap_shader, "uZDistance"), 1000.0f);
+	glActiveTexture(GL_TEXTURE0); // Set the location for binding the texture
+	glBindTexture(GL_TEXTURE_2D, skyboxTexture); // Bind the texture
+	glUniform1i(glGetUniformLocation(m_skymap_shader, "uSkyMap"), 0);  // Set our sampler (texture0) to use GL_TEXTURE0 as the source
+	cgra::draw_dummy(12);
+
+}
 
 void Application::render() {
 
@@ -401,8 +440,8 @@ void Application::render() {
 	}
 
 
+	drawSkybox(view, proj);
 	clouds.draw(view, proj);
-
 	//plane.draw(view, proj);
 }
 
@@ -525,7 +564,7 @@ void Application::buildRayAdvancedShader() {
 
 }
 
-void Application::drawBasicScene(const glm::mat4 & view, const glm::mat4 proj, double time) {
+void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, double time) {
 
 	// DRAW PLANE
 	mat4 modelview = view * plane.modelTransform;
@@ -573,6 +612,11 @@ void Application::drawBasicScene(const glm::mat4 & view, const glm::mat4 proj, d
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.roughness"), waterMaterial.roughness);
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularHighlight"), waterMaterial.specularHighlight);
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularExponent"), waterMaterial.specularExponent);
+
+	// Skybox
+	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxStrength"), skyboxStrength);
+	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxGamma"), skyboxGamma);
+	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxCeiling"), skyboxCeiling);
 
 	// face buffer
 	//GLuint ssbo;

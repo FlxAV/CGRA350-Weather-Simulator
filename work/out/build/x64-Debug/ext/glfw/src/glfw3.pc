@@ -1,4 +1,4 @@
-prefix=C:/Users/charl/OneDrive/Documents/Uni/CGRA - 350/Assignments/Project/Weather-Simulator/work/out/install/x64-Debug
+prefix=C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/install/x64-Debug
 exec_prefix=${prefix}
 includedir=${prefix}/include
 libdir=${exec_prefix}/lib
