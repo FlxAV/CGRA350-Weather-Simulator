@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/src
+# Install script for directory: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/felix/Source/Repos/Weather-Simulator_V2/work/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,6 +33,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/bin/glfw3.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/bin/glfw3.lib")
 endif()
 

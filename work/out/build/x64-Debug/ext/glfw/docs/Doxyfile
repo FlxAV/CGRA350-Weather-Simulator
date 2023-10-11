@@ -52,7 +52,7 @@ PROJECT_LOGO           =
 # If a relative path is entered, it will be relative to the location
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/glfw/docs
+OUTPUT_DIRECTORY       = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/glfw/docs
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create
 # 4096 sub-directories (in 2 levels) under the output directory of each output
@@ -641,7 +641,7 @@ WARN_FORMAT            = "$file:$line: $text"
 # and error messages should be written. If left blank the output is written
 # to stderr.
 
-WARN_LOGFILE           = C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/glfw/docs/warnings.txt
+WARN_LOGFILE           = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/glfw/docs/warnings.txt
 
 #---------------------------------------------------------------------------
 # configuration options related to the input files
@@ -653,21 +653,21 @@ WARN_LOGFILE           = C:/Users/felix/source/repos/Weather-Simulator_V2/work/o
 # with spaces.
 
 INPUT                  =                          \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/include/GLFW/glfw3.h       \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/include/GLFW/glfw3native.h \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/main.dox              \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/news.dox              \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/moving.dox            \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/quick.dox             \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/compile.dox           \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/build.dox             \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/intro.dox             \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/context.dox           \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/monitor.dox           \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/window.dox            \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/input.dox             \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/rift.dox              \
-                         C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/compat.dox
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/include/GLFW/glfw3.h       \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/include/GLFW/glfw3native.h \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/main.dox              \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/news.dox              \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/moving.dox            \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/quick.dox             \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/compile.dox           \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/build.dox             \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/intro.dox             \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/context.dox           \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/monitor.dox           \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/window.dox            \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/input.dox             \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/rift.dox              \
+                         C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/compat.dox
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -727,7 +727,7 @@ EXCLUDE_SYMBOLS        = APIENTRY GLFWAPI
 # directories that contain example code fragments that are included (see
 # the \include command).
 
-EXAMPLE_PATH           = C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/examples
+EXAMPLE_PATH           = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/examples
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp
@@ -903,13 +903,13 @@ HTML_FILE_EXTENSION    = .html
 # have to redo this when upgrading to a newer version of doxygen or when
 # changing the value of configuration settings such as GENERATE_TREEVIEW!
 
-HTML_HEADER            = C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/header.html
+HTML_HEADER            = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/header.html
 
 # The HTML_FOOTER tag can be used to specify a personal HTML footer for
 # each generated HTML page. If it is left blank doxygen will generate a
 # standard footer.
 
-HTML_FOOTER            = C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/footer.html
+HTML_FOOTER            = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/footer.html
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined cascading
 # style sheet that is used by each HTML page. It can be used to
@@ -928,7 +928,7 @@ HTML_STYLESHEET        =
 # robust against future updates. Doxygen will copy the style sheet file to
 # the output directory.
 
-HTML_EXTRA_STYLESHEET  = C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/extra.css
+HTML_EXTRA_STYLESHEET  = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/extra.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
@@ -937,7 +937,7 @@ HTML_EXTRA_STYLESHEET  = C:/Users/felix/source/repos/Weather-Simulator_V2/work/e
 # files. In the HTML_STYLESHEET file, use the file name only. Also note that
 # the files will be copied as-is; there are no commands or markers available.
 
-HTML_EXTRA_FILES       = C:/Users/felix/source/repos/Weather-Simulator_V2/work/ext/glfw/docs/spaces.svg
+HTML_EXTRA_FILES       = C:/Users/kahum/Desktop/felix/Weather-Simulator/work/ext/glfw/docs/spaces.svg
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output.
 # Doxygen will adjust the colors in the style sheet and background images

@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/felix/source/repos/Weather-Simulator_V2/work/res
+# Install script for directory: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/res
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/felix/Source/Repos/Weather-Simulator_V2/work/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

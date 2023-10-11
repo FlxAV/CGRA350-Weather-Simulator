@@ -5,16 +5,27 @@
 #define PI 3.1415926538
 #define OUTLINE_WIDTH 0.004
 #define OUTLINE_COLOR vec4(1.0, 0.0, 1.0, 1.0)
-
+#define FOG_COLOR vec3(0.7, 0.7, 0.9) // Light blueish fog color, adjust to your taste
+#define FOG_START 0
+#define FOG_END 500
+#define FOG_STRENGTH 1
 
 // uniform data
 uniform mat4 uProjectionMatrix;
 uniform mat4 uModelViewMatrix;
 uniform vec3 uColor;
 uniform float u_aspectRatio;
-uniform sampler2D u_screenTexture;
+//uniform sampler2D u_screenTexture;
 uniform int u_framePasses;
 uniform float u_time;
+
+
+// Skybox
+uniform sampler2D u_skyboxTexture;
+uniform float u_skyboxStrength;
+uniform float u_skyboxGamma;
+uniform float u_skyboxCeiling;
+
 
 uniform int u_lightBounces;
 uniform int u_shadowResolution;
@@ -191,6 +202,14 @@ vec3 sampleHemisphere(vec3 normal, float alpha, vec2 seed)
     return getTangentSpace(normal) * tangentSpaceDir;
 }
 
+
+vec3 sampleSkybox(vec3 dir) {
+	if (u_skyboxStrength == 0.0) return vec3(0.0);
+	
+	return min(vec3(u_skyboxCeiling), u_skyboxStrength*pow(texture(u_skyboxTexture, vec2(0.5 + atan(dir.x, dir.z)/(2*PI), 0.5 + asin(-dir.y)/PI)).xyz, vec3(1.0/u_skyboxGamma)));
+}
+
+
 //////////////PART 2: DIRECT ILLUMINATION
 
 // Adds up the total light received directly from all light sources
@@ -329,7 +348,7 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 			}
 		} else {
 			// The ray didn't hit anything :(
-			totalIllumination += energy;
+			totalIllumination += energy * sampleSkybox(rayDirection);;
 			break;
 		}
 		
@@ -342,36 +361,27 @@ vec3 computeSceneColor(Ray cameraRay, float seed) {
 
 void main() {
 
-	/////////////////////////// 
-
-
-
-
-	///////////////////////////
-
 	vec3 eye = normalize(-u_cameraPosition);
-	Ray cameraRay = Ray(u_cameraPosition, f_in.position);
+    Ray cameraRay = Ray(u_cameraPosition, f_in.position);
 
-	// Camera raycasting
-	vec3 colorSum = computeSceneColor(cameraRay, u_time); // calculate the method
-	for (int i = 0; i<u_framePasses-1; i++) colorSum += computeSceneColor(cameraRay, u_time+i); 
-	
-	// get u_framepasses and u_time
+    vec3 colorSum = computeSceneColor(cameraRay, u_time);
+    for (int i = 0; i<u_framePasses-1; i++) {
+        colorSum += computeSceneColor(cameraRay, u_time+i);
+    }
+    
+    vec3 computedColor = colorSum / u_framePasses;
 
-	fb_color = vec4(colorSum / u_framePasses, 1.0);
+    float distanceToCamera = length(f_in.position - u_cameraPosition);
 
-	//if (u_accumulatedPasses > 0) {
+    // Fog calculation
+    if (distanceToCamera > FOG_START && distanceToCamera < FOG_END) {
+        float normalizedDistance = (distanceToCamera - FOG_START) / (FOG_END - FOG_START);
+        float fogFactor = normalizedDistance * FOG_STRENGTH;
+        
+        computedColor = mix(computedColor, FOG_COLOR, fogFactor);
+    } else if (distanceToCamera >= FOG_END) {
+        computedColor = FOG_COLOR;
+    }
 
-		//SurfacePoint hitPoint;
-		//vec3 offsetDirection = cameraRay.direction + vec3(rand(vec2(1,u_time)+f_in.textureCoord), rand(vec2(2, u_time)+f_in.textureCoord), rand(vec2(3, u_time)+f_in.textureCoord));
-			
-		//if (raycast(Ray(cameraRay.origin, offsetDirection), hitPoint)) {
-			//fb_color += vec4(hitPoint.material.emission*hitPoint.material.emissionStrength, 1.0);
-		//}
-
-		// Add last frame back (progressive sampling)
-		//fb_color += texture(u_screenTexture, f_in.textureCoord);
-	//}
-
-	//fb_color = vec4(normalize(f_in.normal) * 0.5 + 0.5, 1.0);
+    fb_color = vec4(computedColor, 1.0);
 }

@@ -177,6 +177,9 @@ void CloudModel::draw(const glm::mat4& view, const glm::mat4& proj) {
     glUniform1f(glGetUniformLocation(shader, "uTime"), currentTime);
 
     mesh.draw(); // draw
+
+    glDisable(GL_BLEND);
+	
 }
 
 

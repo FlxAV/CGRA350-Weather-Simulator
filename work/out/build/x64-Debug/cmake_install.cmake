@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/felix/source/repos/Weather-Simulator_V2/work
+# Install script for directory: C:/Users/kahum/Desktop/felix/Weather-Simulator/work
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/felix/Source/Repos/Weather-Simulator_V2/work/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,13 +34,13 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/glfw/cmake_install.cmake")
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/glew-1.10.0/cmake_install.cmake")
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/stb/cmake_install.cmake")
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/imgui/cmake_install.cmake")
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/ext/glm/cmake_install.cmake")
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/src/cmake_install.cmake")
-  include("C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/res/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/glfw/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/glew-1.10.0/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/stb/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/imgui/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/ext/glm/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/src/cmake_install.cmake")
+  include("C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/res/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

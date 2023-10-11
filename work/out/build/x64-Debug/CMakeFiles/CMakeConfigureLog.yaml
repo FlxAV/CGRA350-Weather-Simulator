@@ -7,7 +7,7 @@ events:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
       - "CMakeLists.txt:17 (project)"
     message: |
-      The system is: Windows - 10.0.19045 - AMD64
+      The system is: Windows - 10.0.22000 - AMD64
   -
     kind: "message-v1"
     backtrace:
@@ -17,17 +17,17 @@ events:
       - "CMakeLists.txt:17 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/bin/Hostx64/x64/cl.exe 
+      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.34.31933/bin/Hostx64/x64/cl.exe 
       Build flags: 
       Id flags:  
       
       The output was:
       0
-      Microsoft (R) C/C++ Optimizing Compiler Version 19.37.32822 for x64
+      Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31946 for x64
       Copyright (C) Microsoft Corporation.  All rights reserved.
       
       CMakeCXXCompilerId.cpp
-      Microsoft (R) Incremental Linker Version 14.37.32822.0
+      Microsoft (R) Incremental Linker Version 14.34.31946.0
       Copyright (C) Microsoft Corporation.  All rights reserved.
       
       /out:CMakeCXXCompilerId.exe 
@@ -39,7 +39,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
       
       The CXX compiler identification is MSVC, found in:
-        C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/3.26.4-msvc4/CompilerIdCXX/CMakeCXXCompilerId.exe
+        C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/3.26.0-msvc3/CompilerIdCXX/CMakeCXXCompilerId.exe
       
   -
     kind: "message-v1"
@@ -51,7 +51,7 @@ events:
     message: |
       Detecting CXX compiler /showIncludes prefix:
         main.c
-        Note: including file: C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
+        Note: including file: C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Note: including file: "
   -
@@ -63,17 +63,17 @@ events:
       - "CMakeLists.txt:17 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.37.32822/bin/Hostx64/x64/cl.exe 
+      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.34.31933/bin/Hostx64/x64/cl.exe 
       Build flags: 
       Id flags:  
       
       The output was:
       0
-      Microsoft (R) C/C++ Optimizing Compiler Version 19.37.32822 for x64
+      Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31946 for x64
       Copyright (C) Microsoft Corporation.  All rights reserved.
       
       CMakeCCompilerId.c
-      Microsoft (R) Incremental Linker Version 14.37.32822.0
+      Microsoft (R) Incremental Linker Version 14.34.31946.0
       Copyright (C) Microsoft Corporation.  All rights reserved.
       
       /out:CMakeCCompilerId.exe 
@@ -85,7 +85,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
       
       The C compiler identification is MSVC, found in:
-        C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/3.26.4-msvc4/CompilerIdC/CMakeCCompilerId.exe
+        C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/3.26.0-msvc3/CompilerIdC/CMakeCCompilerId.exe
       
   -
     kind: "message-v1"
@@ -97,7 +97,7 @@ events:
     message: |
       Detecting C compiler /showIncludes prefix:
         main.c
-        Note: including file: C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
+        Note: including file: C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Note: including file: "
   -
@@ -109,19 +109,19 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-4tp0pn"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-4tp0pn"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-l69bp4"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-l69bp4"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-4tp0pn
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-l69bp4
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_f2652 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_f2652.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_f2652.dir\\ /FS -c "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_f2652.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_f2652.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_f2652.exe /implib:cmTC_f2652.lib /pdb:cmTC_f2652.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_cf50d && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_cf50d.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_cf50d.dir\\ /FS -c "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_cf50d.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_cf50d.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_cf50d.exe /implib:cmTC_cf50d.lib /pdb:cmTC_cf50d.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -133,19 +133,19 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ffv8e6"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ffv8e6"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ves98k"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ves98k"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ffv8e6
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ves98k
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_0d954 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_0d954.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_0d954.dir\\ /FS -c "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_0d954.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0d954.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_0d954.exe /implib:cmTC_0d954.lib /pdb:cmTC_0d954.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_288fa && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_288fa.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_288fa.dir\\ /FS -c "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_288fa.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_288fa.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_288fa.exe /implib:cmTC_288fa.lib /pdb:cmTC_288fa.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -156,19 +156,19 @@ events:
       - "CMakeLists.txt:48 (find_package)"
     description: "Detecting C OpenMP compiler info"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-x4ruze"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-x4ruze"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-q9a2t7"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-q9a2t7"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "OpenMP_COMPILE_RESULT_C_openmp"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-x4ruze
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-q9a2t7
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_2c3af && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_2c3af.dir\\OpenMPTryFlag.c.obj /FdCMakeFiles\\cmTC_2c3af.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-x4ruze\\OpenMPTryFlag.c
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_2c3af.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_2c3af.dir\\OpenMPTryFlag.c.obj  /out:cmTC_2c3af.exe /implib:cmTC_2c3af.lib /pdb:cmTC_2c3af.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_24695 && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_24695.dir\\OpenMPTryFlag.c.obj /FdCMakeFiles\\cmTC_24695.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-q9a2t7\\OpenMPTryFlag.c
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_24695.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_24695.dir\\OpenMPTryFlag.c.obj  /out:cmTC_24695.exe /implib:cmTC_24695.lib /pdb:cmTC_24695.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -179,19 +179,19 @@ events:
       - "CMakeLists.txt:48 (find_package)"
     description: "Detecting CXX OpenMP compiler info"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-v2uygl"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-v2uygl"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-6s5o7e"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-6s5o7e"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "OpenMP_COMPILE_RESULT_CXX_openmp"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-v2uygl
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-6s5o7e
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_5645a && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_5645a.dir\\OpenMPTryFlag.cpp.obj /FdCMakeFiles\\cmTC_5645a.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-v2uygl\\OpenMPTryFlag.cpp
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_5645a.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_5645a.dir\\OpenMPTryFlag.cpp.obj  /out:cmTC_5645a.exe /implib:cmTC_5645a.lib /pdb:cmTC_5645a.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_e802c && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_e802c.dir\\OpenMPTryFlag.cpp.obj /FdCMakeFiles\\cmTC_e802c.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-6s5o7e\\OpenMPTryFlag.cpp
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_e802c.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_e802c.dir\\OpenMPTryFlag.cpp.obj  /out:cmTC_e802c.exe /implib:cmTC_e802c.lib /pdb:cmTC_e802c.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -202,19 +202,19 @@ events:
       - "CMakeLists.txt:48 (find_package)"
     description: "Detecting C OpenMP version"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qak6ng"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qak6ng"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qzwauz"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qzwauz"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "OpenMP_SPECTEST_C_"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qak6ng
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qzwauz
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_db183 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_db183.dir\\OpenMPCheckVersion.c.obj /FdCMakeFiles\\cmTC_db183.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-qak6ng\\OpenMPCheckVersion.c
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_db183.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_db183.dir\\OpenMPCheckVersion.c.obj  /out:cmTC_db183.exe /implib:cmTC_db183.lib /pdb:cmTC_db183.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_82869 && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_82869.dir\\OpenMPCheckVersion.c.obj /FdCMakeFiles\\cmTC_82869.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-qzwauz\\OpenMPCheckVersion.c
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_82869.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_82869.dir\\OpenMPCheckVersion.c.obj  /out:cmTC_82869.exe /implib:cmTC_82869.lib /pdb:cmTC_82869.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -225,19 +225,19 @@ events:
       - "CMakeLists.txt:48 (find_package)"
     description: "Detecting CXX OpenMP version"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-offntr"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-offntr"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-20xjmw"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-20xjmw"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "OpenMP_SPECTEST_CXX_"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-offntr
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-20xjmw
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_1d93b && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_1d93b.dir\\OpenMPCheckVersion.cpp.obj /FdCMakeFiles\\cmTC_1d93b.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-offntr\\OpenMPCheckVersion.cpp
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_1d93b.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_1d93b.dir\\OpenMPCheckVersion.cpp.obj  /out:cmTC_1d93b.exe /implib:cmTC_1d93b.lib /pdb:cmTC_1d93b.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_8fc9b && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_8fc9b.dir\\OpenMPCheckVersion.cpp.obj /FdCMakeFiles\\cmTC_8fc9b.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-20xjmw\\OpenMPCheckVersion.cpp
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_8fc9b.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8fc9b.dir\\OpenMPCheckVersion.cpp.obj  /out:cmTC_8fc9b.exe /implib:cmTC_8fc9b.lib /pdb:cmTC_8fc9b.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -251,21 +251,21 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-zljmuw"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-zljmuw"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-wzebz1"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-wzebz1"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -openmp"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-zljmuw
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-wzebz1
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_31814 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS /W3 -openmp  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_31814.dir\\src.c.obj /FdCMakeFiles\\cmTC_31814.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-zljmuw\\src.c
-        FAILED: CMakeFiles/cmTC_31814.dir/src.c.obj 
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS /W3 -openmp  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_31814.dir\\src.c.obj /FdCMakeFiles\\cmTC_31814.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-zljmuw\\src.c
-        C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-zljmuw\\src.c(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_b8717 && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS /W3 -openmp  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_b8717.dir\\src.c.obj /FdCMakeFiles\\cmTC_b8717.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wzebz1\\src.c
+        FAILED: CMakeFiles/cmTC_b8717.dir/src.c.obj 
+        C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS /W3 -openmp  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_b8717.dir\\src.c.obj /FdCMakeFiles\\cmTC_b8717.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wzebz1\\src.c
+        C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wzebz1\\src.c(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
         ninja: build stopped: subcommand failed.
         
       exitCode: 1
@@ -279,22 +279,22 @@ events:
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-skb8wm"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-skb8wm"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-x74tjh"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-x74tjh"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -openmp"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-skb8wm
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-x74tjh
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_835e1 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp -DCHECK_FUNCTION_EXISTS=pthread_create /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_835e1.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_835e1.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-skb8wm\\CheckFunctionExists.c
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_835e1.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_835e1.dir\\CheckFunctionExists.c.obj  /out:cmTC_835e1.exe /implib:cmTC_835e1.lib /pdb:cmTC_835e1.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
-        FAILED: cmTC_835e1.exe 
-        cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_835e1.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_835e1.dir\\CheckFunctionExists.c.obj  /out:cmTC_835e1.exe /implib:cmTC_835e1.lib /pdb:cmTC_835e1.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
-        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_835e1.dir\\CheckFunctionExists.c.obj /out:cmTC_835e1.exe /implib:cmTC_835e1.lib /pdb:cmTC_835e1.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_835e1.dir/intermediate.manifest CMakeFiles\\cmTC_835e1.dir/manifest.res" failed (exit code 1104) with the following output:
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_a0e81 && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp -DCHECK_FUNCTION_EXISTS=pthread_create /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_a0e81.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_a0e81.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-x74tjh\\CheckFunctionExists.c
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_a0e81.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_a0e81.dir\\CheckFunctionExists.c.obj  /out:cmTC_a0e81.exe /implib:cmTC_a0e81.lib /pdb:cmTC_a0e81.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_a0e81.exe 
+        cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_a0e81.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_a0e81.dir\\CheckFunctionExists.c.obj  /out:cmTC_a0e81.exe /implib:cmTC_a0e81.lib /pdb:cmTC_a0e81.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_a0e81.dir\\CheckFunctionExists.c.obj /out:cmTC_a0e81.exe /implib:cmTC_a0e81.lib /pdb:cmTC_a0e81.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_a0e81.dir/intermediate.manifest CMakeFiles\\cmTC_a0e81.dir/manifest.res" failed (exit code 1104) with the following output:
         LINK : fatal error LNK1104: cannot open file 'pthreads.lib'\x0d
         ninja: build stopped: subcommand failed.
         
@@ -309,22 +309,22 @@ events:
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-r9phj3"
-      binary: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-r9phj3"
+      source: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-vsacrn"
+      binary: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-vsacrn"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -openmp"
-      CMAKE_MODULE_PATH: "C:/Users/felix/source/repos/Weather-Simulator_V2/work/cmake"
+      CMAKE_MODULE_PATH: "C:/Users/kahum/Desktop/felix/Weather-Simulator/work/cmake"
     buildResult:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: C:/Users/felix/source/repos/Weather-Simulator_V2/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-r9phj3
+        Change Dir: C:/Users/kahum/Desktop/felix/Weather-Simulator/work/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-vsacrn
         
-        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_0a50e && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp -DCHECK_FUNCTION_EXISTS=pthread_create /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_0a50e.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_0a50e.dir\\ /FS -c C:\\Users\\felix\\source\\repos\\Weather-Simulator_V2\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-r9phj3\\CheckFunctionExists.c
-        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_0a50e.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0a50e.dir\\CheckFunctionExists.c.obj  /out:cmTC_0a50e.exe /implib:cmTC_0a50e.lib /pdb:cmTC_0a50e.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
-        FAILED: cmTC_0a50e.exe 
-        cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_0a50e.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0a50e.dir\\CheckFunctionExists.c.obj  /out:cmTC_0a50e.exe /implib:cmTC_0a50e.lib /pdb:cmTC_0a50e.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
-        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0a50e.dir\\CheckFunctionExists.c.obj /out:cmTC_0a50e.exe /implib:cmTC_0a50e.lib /pdb:cmTC_0a50e.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_0a50e.dir/intermediate.manifest CMakeFiles\\cmTC_0a50e.dir/manifest.res" failed (exit code 1104) with the following output:
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_8e2f8 && [1/2] C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3 -openmp -DCHECK_FUNCTION_EXISTS=pthread_create /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_8e2f8.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_8e2f8.dir\\ /FS -c C:\\Users\\kahum\\Desktop\\felix\\Weather-Simulator\\work\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-vsacrn\\CheckFunctionExists.c
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_8e2f8.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8e2f8.dir\\CheckFunctionExists.c.obj  /out:cmTC_8e2f8.exe /implib:cmTC_8e2f8.lib /pdb:cmTC_8e2f8.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_8e2f8.exe 
+        cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_8e2f8.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8e2f8.dir\\CheckFunctionExists.c.obj  /out:cmTC_8e2f8.exe /implib:cmTC_8e2f8.lib /pdb:cmTC_8e2f8.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1434~1.319\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8e2f8.dir\\CheckFunctionExists.c.obj /out:cmTC_8e2f8.exe /implib:cmTC_8e2f8.lib /pdb:cmTC_8e2f8.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_8e2f8.dir/intermediate.manifest CMakeFiles\\cmTC_8e2f8.dir/manifest.res" failed (exit code 1104) with the following output:
         LINK : fatal error LNK1104: cannot open file 'pthread.lib'\x0d
         ninja: build stopped: subcommand failed.
         
