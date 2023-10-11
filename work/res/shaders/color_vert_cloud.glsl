@@ -8,6 +8,9 @@ uniform vec3 uColor;
 // Define a uniform for the lateral shift and height variation
 uniform float uTime;
 uniform float uHeightVariation = 5.0;  // Increasing this will create larger height variations
+uniform float uLateralShift;
+
+
 
 // mesh data
 layout(location = 0) in vec3 aPosition;
@@ -25,7 +28,7 @@ out VertexData {
 void main() {
     float threshold = -1.0; // Adjust the threshold value as needed
     vec3 pos = aPosition;
-    pos.x += sin(uTime*0.1) * 0.1 ;
+    pos.x += sin(uTime* (0.1 + uLateralShift)) * 0.1 ;
 
     if (aPosition.y >= threshold) {
         v_out.isAboveThreshold = 0; // Mark vertices above threshold

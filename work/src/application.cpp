@@ -374,6 +374,10 @@ void Application::drawSkybox(const glm::mat4& view, const glm::mat4 proj) {
 	glUseProgram(m_skymap_shader);
 	glUniformMatrix4fv(glGetUniformLocation(m_skymap_shader, "uProjectionMatrix"), 1, false, value_ptr(proj));
 	glUniformMatrix4fv(glGetUniformLocation(m_skymap_shader, "uModelViewMatrix"), 1, false, value_ptr(view));
+
+	// CHARLES' STUFF TO MERGE
+	glUniform1f(glGetUniformLocation(m_skymap_shader, "u_Brightness"), brightness);
+	
 	glUniform1f(glGetUniformLocation(m_skymap_shader, "uZDistance"), 1000.0f);
 	glActiveTexture(GL_TEXTURE0); // Set the location for binding the texture
 	glBindTexture(GL_TEXTURE_2D, skyboxTexture); // Bind the texture
@@ -445,6 +449,10 @@ void Application::render() {
 
 	// Define the distance between each replicated cloud chunk
 	vec3 cloudOffset(2, 0, 2); // adjust based on your cloud's size
+	glUseProgram(clouds.shader);
+	glUniform1f(glGetUniformLocation(clouds.shader, "u_Brightness"), brightness);
+	glUniform1f(glGetUniformLocation(clouds.shader, "uLateralShift"), uLateralShift);
+	glUniform1f(glGetUniformLocation(clouds.shader, "uTransparency"), uTransparency);
 
 	for (int i = -cloudReplicationCount; i <= cloudReplicationCount; i++) {
 		for (int j = -cloudReplicationCount; j <= cloudReplicationCount; j++) {
@@ -453,6 +461,7 @@ void Application::render() {
 
 			// Translate the cloud's model transformation for this iteration
 			clouds.modelTransform = glm::translate(originalTransform, vec3(cloudOffset.x * i, 0, cloudOffset.z * j));
+			
 
 			// Draw the cloud at the new location
 			clouds.draw(view, proj);
@@ -462,6 +471,7 @@ void Application::render() {
 		}
 	}
 	//plane.draw(view, proj);
+	
 }
 
 
@@ -483,6 +493,7 @@ void Application::renderGUI() {
 	//ImGui::SliderInt("shadowResolution", &shadowResolution, 0, 100);
 	ImGui::SliderInt("lightBounces", &lightBounces, 0, 15);
 	ImGui::SliderFloat("light power", &pointLight.power, 0, 5000);
+
 	ImGui::SliderFloat("light reach", &pointLight.reach, 0, 5000);
 	ImGui::SliderFloat3("light position", value_ptr(lightTranslate), -1, 1);
 	ImGui::SliderFloat("light Height", &lightTranslate.y, 0, 250);
@@ -497,12 +508,25 @@ void Application::renderGUI() {
 	//ImGui::SliderFloat("Object spec Highlight", &planeMaterial.specularHighlight, 0, 1);
 	//ImGui::SliderFloat("Object spec EXPO", &planeMaterial.specularExponent, 0, 11);
 	// helpful drawing options
+
+	// CHARLES' STUFF TO MERGE
+	ImGui::Separator();
+	ImGui::SliderFloat3("Water albedo", value_ptr(waterMaterial.albedo), 0, 1);
+	ImGui::SliderFloat3("Water specular", value_ptr(waterMaterial.specular), 0, 1);
+	ImGui::SliderFloat("sky brightness", &brightness, 0, 1);
+	ImGui::Separator();
+	// 
+
+	
 	ImGui::Checkbox("Show axis", &m_show_axis);
 	ImGui::SameLine();
 	ImGui::Checkbox("Show grid", &m_show_grid);
 	ImGui::Checkbox("Wireframe", &m_showWireframe);
 	ImGui::SameLine();
 	if (ImGui::Button("Screenshot")) rgba_image::screenshot(true);
+	
+	ImGui::SliderFloat("Lateral Shift", &uLateralShift, -0.1, 5.0);
+	ImGui::SliderFloat("Transparency", &uTransparency, 0, 1);
 
 
 	ImGui::Separator();
@@ -604,7 +628,7 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 	glUniform1f(glGetUniformLocation(rayshader, "u_waveTime"), currentTime);
 
 	glUniform3fv(glGetUniformLocation(rayshader, "u_cameraPosition"), 1, value_ptr(camPos));
-	glUniform3fv(glGetUniformLocation(rayshader, "u_lightTranslation"), 1, value_ptr(lightTranslate));
+
 
 	// light stuff
 	glUniform3fv(glGetUniformLocation(rayshader, "u_light.position"), 1, value_ptr(pointLight.position));
@@ -632,10 +656,15 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularHighlight"), waterMaterial.specularHighlight);
 	glUniform1f(glGetUniformLocation(rayshader, "u_waterMaterial.specularExponent"), waterMaterial.specularExponent);
 
+
 	// Skybox
 	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxStrength"), skyboxStrength);
 	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxGamma"), skyboxGamma);
 	glUniform1f(glGetUniformLocation(rayshader, "u_skyboxCeiling"), skyboxCeiling);
+
+	// CHARLES' STUFF TO MERGE
+	glUniform1f(glGetUniformLocation(rayshader, "u_Brightness"), brightness);
+
 
 	// face buffer
 	//GLuint ssbo;
@@ -644,8 +673,8 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 	//glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::vec3) * plane.vertices.size(), &plane.vertices[0], GL_STATIC_DRAW);
 	//glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); // Unbind
 
-	int range = 2; // This will draw one plane to the left, right, above, and below the original.
-	float offset = 1.99; // Assuming 200 is the size of your plane.
+	int range = 2;
+	float offset = 1.99;
 
 	for (int x = -range; x <= range; x++) {
 		for (int z = -range; z <= range; z++) {
@@ -654,6 +683,7 @@ void Application::drawBasicScene(const glm::mat4& view, const glm::mat4 proj, do
 
 			// Set the modified modelview
 			glUniformMatrix4fv(glGetUniformLocation(rayshader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
+			glUniform3fv(glGetUniformLocation(rayshader, "u_lightTranslation"), 1, value_ptr(lightTranslate + (x * offset, 1, z * offset)));
 
 			plane.draw(); // draw each tile
 		}
@@ -918,8 +948,7 @@ void Application::plotPoints() {
 
 		//CAM-CONTROL POINTS
 
-
-		//Start
+	//Start
 	camControlPts.push_back(vec3(100, 0.2, 40));
 	camControlPts.push_back(vec3(103, 0.5, 30));
 	camControlPts.push_back(vec3(106, 0.6, 20));
@@ -965,31 +994,31 @@ void Application::plotPoints() {
 	camControlPts.push_back(vec3(140, 7.6, -10));
 	camControlPts.push_back(vec3(125, 7.5, 0));
 
-	camControlPts.push_back(vec3(107, 3.6, 10));
-	camControlPts.push_back(vec3(90, 3.5, 20));
+	camControlPts.push_back(vec3(105, 3.6, 10));
+	camControlPts.push_back(vec3(92, 3.5, 20));
 	//10
-	camControlPts.push_back(vec3(65, 0.6, 20.6));
-	camControlPts.push_back(vec3(57, 0.5, 23.9));
+	camControlPts.push_back(vec3(69, 0.6, 20.6));
+	camControlPts.push_back(vec3(46, 0.5, 23.9));
 
-	camControlPts.push_back(vec3(44, -3.6, 26.4));
-	camControlPts.push_back(vec3(22, -3.5, 29));
+	camControlPts.push_back(vec3(23, -3.6, 26.4));
+	camControlPts.push_back(vec3(0, -3.5, 29));
 
-	camControlPts.push_back(vec3(0, -6.2, 33));
-	camControlPts.push_back(vec3(-1.5, -6.2, 38.5));
+	camControlPts.push_back(vec3(-23, -6.2, 33));
+	camControlPts.push_back(vec3(-46, -6.2, 38.5));
 
-	camControlPts.push_back(vec3(-3, -8.37, 43));
-	camControlPts.push_back(vec3(-3.3, -8.4, 48));
+	camControlPts.push_back(vec3(-69, -8.37, 43));
+	camControlPts.push_back(vec3(-89, -8.4, 48));
 	//15
-	camControlPts.push_back(vec3(-4.7, -10.9, 66));
-	camControlPts.push_back(vec3(-5.4, -10.97, 74));
+	camControlPts.push_back(vec3(-87, -10.9, 66));
+	camControlPts.push_back(vec3(-83, -10.97, 74));
 
-	camControlPts.push_back(vec3(-6, -5, 66));
-	camControlPts.push_back(vec3(-14, -5, 58));
+	camControlPts.push_back(vec3(-77, -5, 66));
+	camControlPts.push_back(vec3(-71, -5, 58));
 
-	camControlPts.push_back(vec3(-22, -3.6, 50));
-	camControlPts.push_back(vec3(-30, -3.67, 42));
+	camControlPts.push_back(vec3(-64, -3.6, 50));
+	camControlPts.push_back(vec3(-55, -3.67, 42));
 
-	camControlPts.push_back(vec3(-38, 0, 30));
+	camControlPts.push_back(vec3(-48, 0, 30));
 	camControlPts.push_back(vec3(-46, 0.5, 15));
 
 	camControlPts.push_back(vec3(-54, 5, -25));
@@ -1042,11 +1071,4 @@ void Application::plotPoints() {
 	//35
 	camControlPts.push_back(vec3(-147, -6.7, 155));
 	camControlPts.push_back(vec3(-148, -4.5, 165));
-	//<------------------------------------------------------------>
-
-
-
-
-
-
 }

@@ -18,6 +18,7 @@ uniform float u_aspectRatio;
 //uniform sampler2D u_screenTexture;
 uniform int u_framePasses;
 uniform float u_time;
+uniform float u_Brightness;
 
 
 // Skybox
@@ -378,9 +379,9 @@ void main() {
         float normalizedDistance = (distanceToCamera - FOG_START) / (FOG_END - FOG_START);
         float fogFactor = normalizedDistance * FOG_STRENGTH;
         
-        computedColor = mix(computedColor, FOG_COLOR, fogFactor);
+        computedColor = mix(computedColor, FOG_COLOR * u_Brightness , fogFactor);
     } else if (distanceToCamera >= FOG_END) {
-        computedColor = FOG_COLOR;
+        computedColor = FOG_COLOR * u_Brightness;
     }
 
     fb_color = vec4(computedColor, 1.0);
