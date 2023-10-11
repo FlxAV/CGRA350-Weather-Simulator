@@ -156,19 +156,15 @@ private:
 	mesh_builder skymesh;
 	int skyres = 1000;
 	CloudModel clouds = CloudModel(skymesh, skyres, top);
-	float m_threshold = 50.0;
-	float m_gradualFactor = 40.0;
 
-	float threshold_check = 0.0;
-	float gradual_check = 0.0;
+	CloudModel cloudsTop = CloudModel(skymesh, skyres, top);
 
-	float m_amp = 9.0;
-	float m_freq = 0.06;
+	float m_threshold = 83;
+	float m_gradualFactor = 80;
+
+	float m_amp = 6.3;
+	float m_freq = 0.01;
 	float m_nHeight = -3.0;
-
-	float amp_check = 0.0;
-	float freq_check = 0.0;
-	float nHeight_check = 0.0;
 
 	bool redraw = false;
 

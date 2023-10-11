@@ -305,9 +305,9 @@ Application::Application(GLFWwindow * window) : m_window(window) {
 
 
 	clouds.shader = cloudshader;
-	clouds.resolution = 300;
-	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 100, 0)); // Move up by 2 units in the Y-direction
-	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(150, 1, 150));
+	clouds.resolution = 800;
+	clouds.modelTransform = glm::translate(glm::mat4(1), glm::vec3(0, 55, 0)); // Move up by 2 units in the Y-direction
+	clouds.modelTransform *= glm::scale(glm::mat4(1), glm::vec3(1000, 1, 1000));
 
 	clouds.createMesh_v4(m_threshold, m_gradualFactor, m_amp, m_freq, m_nHeight);
 
@@ -388,11 +388,7 @@ void Application::render() {
 
 
 
-	// draw the model
-	//m_model.draw(view, proj);
-
-	//m_model.draw(view, proj);
-	//m_plane.draw(view, proj);
+	
 	drawBasicScene(view, proj, preTime);
 
 	if (redraw) {
@@ -403,7 +399,6 @@ void Application::render() {
 
 	clouds.draw(view, proj);
 
-	//plane.draw(view, proj);
 }
 
 
@@ -450,7 +445,7 @@ void Application::renderGUI() {
 	ImGui::Separator();
 
 	ImGui::SliderFloat("Threshold", &m_threshold, 0, 100, "%.2f", 2.0f);
-	ImGui::SliderFloat("GradualFactor", &m_gradualFactor, 0, 80, "%.2f", 2.0f);
+	ImGui::SliderFloat("GradualFactor", &m_gradualFactor, 20, 120, "%.2f", 2.0f);
 	ImGui::SliderFloat("Amp", &m_amp, -10, 15, "%.2f", 2.0f);
 	ImGui::SliderFloat("Freq", &m_freq, -1, 1, "%.2f", 2.0f);
 	ImGui::SliderFloat("nHeight", &m_nHeight, -20, 20, "%.2f", 2.0f);

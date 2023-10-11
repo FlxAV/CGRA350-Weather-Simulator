@@ -42,35 +42,6 @@ CloudModel::CloudModel(mesh_builder meshb, int resolution, glm::vec3 localUp) { 
 }
 
 
-vec3 computeNormal_v2(const std::vector<float>& noiseMap, const std::vector<int>& isAboveThreshold, int x, int y, int resolution) {
-    // Ensure x and y are within valid bounds
-    x = std::max(0, std::min(x, resolution - 1));
-    y = std::max(0, std::min(y, resolution - 1));
-
-    // Check if all three vertices of the triangle are above the threshold
-    if (isAboveThreshold[x + y * resolution] == 1 &&
-        isAboveThreshold[(x + 1) + y * resolution] == 1 &&
-        isAboveThreshold[x + (y + 1) * resolution] == 1) {
-        // Calculate the normal as you did previously
-        float hL = noiseMap[x + y * resolution];
-        float hR = noiseMap[(x + 1) + y * resolution];
-        float hU = noiseMap[x + (y + 1) * resolution];
-        vec3 tangentRight = vec3(1, hR - hL, 0);
-        vec3 tangentUp = vec3(0, hU - hL, 1);
-        vec3 normal = normalize(cross(tangentUp, tangentRight));
-        return normal;
-    }
-    else {
-        // Return a default normal (e.g., pointing up) for triangles below the threshold
-        return vec3(0.0, 1.0, 0.0);
-    }
-}
-
-int computeIsAboveThreshold(const vec3& position, float threshold) {
-    // Compare the y-coordinate of the vertex position with the threshold
-    return (position.y >= threshold) ? 1 : 0;
-}
-
 vec3 computeNormalCloud(const std::vector<float>& noiseMap, int x, int y, int resolution) {
     // Edge cases
     float hL = x > 0 ? noiseMap[(x - 1) + y * resolution] : noiseMap[x + y * resolution];
@@ -87,77 +58,6 @@ vec3 computeNormalCloud(const std::vector<float>& noiseMap, int x, int y, int re
     return normalize(normal);
 }
 
-void CloudModel::createMesh_v2(float threshold, float gradualFactor) {
-    int vertexCount = resolution * resolution;
-    std::vector<vec3> vertices(vertexCount);
-    std::vector<vec3> normals(vertexCount); // Store normals
-    std::vector<vec2> uvs(vertexCount); // Store UVs
-    std::vector<unsigned int> triangles(6 * (resolution - 1) * (resolution - 1));
-
-    int triIndex = 0;
-
-    for (int y = 0; y < resolution; y++) {
-        for (int x = 0; x < resolution; x++) {
-            int i = x + y * resolution;
-            vec2 percent = vec2(static_cast<float>(x), static_cast<float>(y));
-            percent.x /= static_cast<float>(resolution - 1);
-            percent.y /= static_cast<float>(resolution - 1);
-
-            vec3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB;
-
-            vertices[i] = pointOnUnitCube;
-
-            // Compute the normal by taking the cross product of the axisA and axisB vectors
-            // and use it as the normal for each vertex
-            normals[i] = normalize(cross(axisA, axisB));
-
-            // Compute UVs based on percent
-            uvs[i] = percent;
-
-            if (x != resolution - 1 && y != resolution - 1) {
-                triangles[triIndex] = i;
-                triangles[triIndex + 1] = i + resolution + 1;
-                triangles[triIndex + 2] = i + resolution;
-
-                triangles[triIndex + 3] = i;
-                triangles[triIndex + 4] = i + 1;
-                triangles[triIndex + 5] = i + resolution + 1;
-                triIndex += 6;
-            }
-        }
-    }
-    meshb.clear();
-
-    perlinMap();
-
-    //float threshold = -10.0;
-
-    float maxHeight = 20;
-    //float gradualFactor = 10;
-
-    // Adjust the Y value based on noiseMap and threshold
-    for (int i = 0; i < vertices.size(); i++) {
-        float noiseValue = noiseMap[i];
-        if (noiseValue >= threshold) {
-            vertices[i].y = maxHeight;
-        }
-        else if (noiseValue >= threshold - gradualFactor) {
-            // Gradually increase Y value for vertices close to the threshold
-            float blendFactor = (threshold - noiseValue) / gradualFactor;
-            vertices[i].y = maxHeight * (1.0 - blendFactor);
-        }
-    }
-
-    // Add the new vertices, normals, and UVs to the mesh_builder
-    for (int i = 0; i < vertexCount; i++) {
-        meshb.push_vertex(cgra::mesh_vertex{ vertices[i], normals[i], uvs[i] });
-    }
-
-    for (int i = 0; i < triangles.size(); i += 3) {
-        meshb.push_indices({ triangles[i], triangles[i + 1], triangles[i + 2] });
-    }
-    mesh = meshb.build();
-}
 
 void CloudModel::createMesh_v4(float threshold, float gradualFactor, float amp, float freq, float nHeight) {
     int vertexCount = resolution * resolution;
@@ -270,6 +170,101 @@ void CloudModel::perlinMap_v3(float amp,float freq, float nHeight) {
     }
 }
 
+
+
+
+void CloudModel::draw(const glm::mat4& view, const glm::mat4& proj) {
+
+    mat4 modelview = view * modelTransform;
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+    glUseProgram(shader); // load shader and variables
+    glUniformMatrix4fv(glGetUniformLocation(shader, "uProjectionMatrix"), 1, false, value_ptr(proj));
+    glUniformMatrix4fv(glGetUniformLocation(shader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
+    glUniform3fv(glGetUniformLocation(shader, "uColor"), 1, value_ptr(color));
+
+    float currentTime = std::chrono::duration<float, std::chrono::seconds::period>(std::chrono::steady_clock::now().time_since_epoch()).count();
+    glUniform1f(glGetUniformLocation(shader, "uTime"), currentTime);
+
+    mesh.draw(); // draw
+}
+
+
+void CloudModel::createMesh_v2(float threshold, float gradualFactor) {
+    int vertexCount = resolution * resolution;
+    std::vector<vec3> vertices(vertexCount);
+    std::vector<vec3> normals(vertexCount); // Store normals
+    std::vector<vec2> uvs(vertexCount); // Store UVs
+    std::vector<unsigned int> triangles(6 * (resolution - 1) * (resolution - 1));
+
+    int triIndex = 0;
+
+    for (int y = 0; y < resolution; y++) {
+        for (int x = 0; x < resolution; x++) {
+            int i = x + y * resolution;
+            vec2 percent = vec2(static_cast<float>(x), static_cast<float>(y));
+            percent.x /= static_cast<float>(resolution - 1);
+            percent.y /= static_cast<float>(resolution - 1);
+
+            vec3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB;
+
+            vertices[i] = pointOnUnitCube;
+
+            // Compute the normal by taking the cross product of the axisA and axisB vectors
+            // and use it as the normal for each vertex
+            normals[i] = normalize(cross(axisA, axisB));
+
+            // Compute UVs based on percent
+            uvs[i] = percent;
+
+            if (x != resolution - 1 && y != resolution - 1) {
+                triangles[triIndex] = i;
+                triangles[triIndex + 1] = i + resolution + 1;
+                triangles[triIndex + 2] = i + resolution;
+
+                triangles[triIndex + 3] = i;
+                triangles[triIndex + 4] = i + 1;
+                triangles[triIndex + 5] = i + resolution + 1;
+                triIndex += 6;
+            }
+        }
+    }
+    meshb.clear();
+
+    perlinMap();
+
+    //float threshold = -10.0;
+
+    float maxHeight = 20;
+    //float gradualFactor = 10;
+
+    // Adjust the Y value based on noiseMap and threshold
+    for (int i = 0; i < vertices.size(); i++) {
+        float noiseValue = noiseMap[i];
+        if (noiseValue >= threshold) {
+            vertices[i].y = maxHeight;
+        }
+        else if (noiseValue >= threshold - gradualFactor) {
+            // Gradually increase Y value for vertices close to the threshold
+            float blendFactor = (threshold - noiseValue) / gradualFactor;
+            vertices[i].y = maxHeight * (1.0 - blendFactor);
+        }
+    }
+
+    // Add the new vertices, normals, and UVs to the mesh_builder
+    for (int i = 0; i < vertexCount; i++) {
+        meshb.push_vertex(cgra::mesh_vertex{ vertices[i], normals[i], uvs[i] });
+    }
+
+    for (int i = 0; i < triangles.size(); i += 3) {
+        meshb.push_indices({ triangles[i], triangles[i + 1], triangles[i + 2] });
+    }
+    mesh = meshb.build();
+}
+
 void CloudModel::perlinMap() {
     // Create a Perlin noise map
     noiseMap = std::vector<float>(resolution * resolution);
@@ -309,20 +304,6 @@ void CloudModel::printNoiseMap() {
     }
 
 }
-
-
-void CloudModel::draw(const glm::mat4& view, const glm::mat4& proj) {
-
-    mat4 modelview = view * modelTransform;
-
-    glUseProgram(shader); // load shader and variables
-    glUniformMatrix4fv(glGetUniformLocation(shader, "uProjectionMatrix"), 1, false, value_ptr(proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader, "uModelViewMatrix"), 1, false, value_ptr(modelview));
-    glUniform3fv(glGetUniformLocation(shader, "uColor"), 1, value_ptr(color));
-
-    mesh.draw(); // draw
-}
-
 
 void CloudModel::createMesh_v1(int numPoints, float size, int seed, float verticalSpread) {
     // Create a vector to hold the vertices
@@ -494,7 +475,6 @@ void CloudModel::perlinMap_v2() {
     }
 }
 
-
 // Function to calculate Worley noise value at a given 2D position
 float CloudModel::calculateWorleyNoise(const glm::vec2& position) {
     // Define the number of feature points (cell centers)
@@ -527,6 +507,36 @@ float CloudModel::calculateWorleyNoise(const glm::vec2& position) {
 }
 
 
+
+//vec3 computeNormal_v2(const std::vector<float>& noiseMap, const std::vector<int>& isAboveThreshold, int x, int y, int resolution) {
+//    // Ensure x and y are within valid bounds
+//    x = std::max(0, std::min(x, resolution - 1));
+//    y = std::max(0, std::min(y, resolution - 1));
+//
+//    // Check if all three vertices of the triangle are above the threshold
+//    if (isAboveThreshold[x + y * resolution] == 1 &&
+//        isAboveThreshold[(x + 1) + y * resolution] == 1 &&
+//        isAboveThreshold[x + (y + 1) * resolution] == 1) {
+//        // Calculate the normal as you did previously
+//        float hL = noiseMap[x + y * resolution];
+//        float hR = noiseMap[(x + 1) + y * resolution];
+//        float hU = noiseMap[x + (y + 1) * resolution];
+//        vec3 tangentRight = vec3(1, hR - hL, 0);
+//        vec3 tangentUp = vec3(0, hU - hL, 1);
+//        vec3 normal = normalize(cross(tangentUp, tangentRight));
+//        return normal;
+//    }
+//    else {
+//        // Return a default normal (e.g., pointing up) for triangles below the threshold
+//        return vec3(0.0, 1.0, 0.0);
+//    }
+//}
+
+//int computeIsAboveThreshold(const vec3& position, float threshold) {
+//    // Compare the y-coordinate of the vertex position with the threshold
+//    return (position.y >= threshold) ? 1 : 0;
+//}
+
 //float CloudModel::calculateWorleyNoise3(const glm::vec3& position) {
 //    // Define the number of feature points (cell centers)
 //    int numPoints = 10; // You can adjust this value
@@ -556,10 +566,6 @@ float CloudModel::calculateWorleyNoise(const glm::vec2& position) {
 //    // Calculate the Worley noise value based on the closest and second closest distances
 //    return closestDist - secondClosestDist;
 //}
-
-
-
-
 
 //void CloudModel::generateCloudGeometry(int resolution, float size, int seed) {
 //    // Create a mesh_builder to build the mesh

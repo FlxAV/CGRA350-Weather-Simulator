@@ -5,6 +5,9 @@ uniform mat4 uProjectionMatrix;
 uniform mat4 uModelViewMatrix;
 uniform vec3 uColor;
 
+// Define a uniform for the lateral shift
+uniform float uTime;
+
 // mesh data
 layout(location = 0) in vec3 aPosition;
 layout(location = 1) in vec3 aNormal;
@@ -21,18 +24,23 @@ out VertexData {
 void main() {
     // Apply threshold to vertices in object space (local coordinates)
     float threshold = -1.0; // Adjust the threshold value as needed
+    vec3 pos = aPosition;
+    pos.x += sin(uTime*0.008) * 0.1 ;
+
+
+
     if (aPosition.y >= threshold) {
-        v_out.position = (uModelViewMatrix * vec4(aPosition, 1)).xyz;
+        v_out.position = vec3(uModelViewMatrix * vec4(pos, 1.0));
         v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
         v_out.textureCoord = aTexCoord;
-        v_out.isAboveThreshold = 0; // Mark vertices below threshold
+        v_out.isAboveThreshold = 0; // Mark vertices above threshold
     } else {
-        v_out.position = (uModelViewMatrix * vec4(aPosition, 1)).xyz;
+        v_out.position = vec3(uModelViewMatrix * vec4(pos, 1.0));
         v_out.normal = normalize((uModelViewMatrix * vec4(aNormal, 0)).xyz);
         v_out.textureCoord = aTexCoord;
-        v_out.isAboveThreshold = 1; // Mark vertices above threshold
+        v_out.isAboveThreshold = 1; // Mark vertices below threshold
     }
 
     // Set the screenspace position (needed for converting to fragment data)
-    gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1);
+    gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(pos, 1);
 }

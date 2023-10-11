@@ -32,5 +32,5 @@ void main() {
 	}
 
 	// output to the framebuffer
-	fb_color = vec4(color, 1);
+	fb_color = vec4(color, 0.5);
 }
