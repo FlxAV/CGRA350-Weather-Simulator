@@ -40,9 +40,11 @@ To experience the project:
 
 1. **Clone the Repository:** Clone this repository to your local machine.
 
-2. **Enable CMake:** Click on Folder view in the Solution Explorer, and then click on Enable and set source directory. navigate to the according repo and then into "work" and select the "CMakeLists" file
+2. **Open the Project:** Open the project file into Visual Studio (or your viewer of choice).
 
-3. **Run the Project:** Launch the project and interact with the scene using the provided controls.
+3. **Enable CMake:** Click on Folder view in the Solution Explorer, and then click on Enable and set source directory. navigate to the according repo and then into "work" and select the "CMakeLists" file
+
+4. **Run the Project:** Launch the project and interact with the scene using the provided controls.
 
 ## Credits
 
