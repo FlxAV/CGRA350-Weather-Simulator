@@ -19,7 +19,7 @@ In this project, I primarily focused on developing the clouds module. The clouds
 - Density: Adjust the concentration of clouds in the sky.
 - Amplitude: Modify the scale of cloud movement.
 - Movement Speed: Change the speed at which clouds move across the sky.
-- 
+  
 The goal was to create realistic cloud formations that respond dynamically to user input, enhancing the overall visual realism and user experience of the scene.
 
 ## Scene Interaction
@@ -33,6 +33,8 @@ Upon running the project, users can:
 
 
 ## How to Run
+
+To view the project you can simply download the ShowcaseVideo.mp4 file and view it or by following these steps below.
 
 To experience the project:
 
